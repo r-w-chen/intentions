@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from "@chakra-ui/react"
 import { NavLink } from 'react-router-dom';
+import { Flex, Spacer } from "@chakra-ui/react"
 import { useSelector } from 'react-redux';
 import LogoutButton from './auth/LogoutButton';
 
@@ -8,29 +10,28 @@ const NavBar = () => {
 
   return (
     <nav>
-      <ul>
-        <li>
-          <NavLink to="/" exact={true} activeClassName="active">
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/login" exact={true} activeClassName="active">
+      <Flex justify="space-between">
+          <Link as={NavLink} to="/" exact={true} activeClassName="active">
+            Intentions
+          </Link>
+          {/* <Spacer /> */}
+        {user ?
+          <LogoutButton />
+        :
+        <>
+
+          <Link as={NavLink} to="/login" exact={true} activeClassName="active">
             Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/sign-up" exact={true} activeClassName="active">
+          </Link>
+     
+   
+          <Link as ={NavLink} to="/sign-up" exact={true} activeClassName="active">
             Sign Up
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/users" exact={true} activeClassName="active">
-            Users
-          </NavLink>
-        </li>
-          {user && <LogoutButton />}
-      </ul>
+          </Link>
+
+        </>
+        }
+      </Flex>
     </nav>
   );
 }

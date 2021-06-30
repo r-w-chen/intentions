@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Exercise
+from app.models import Skill, db
 
 skills_routes = Blueprint('skills', __name__)
 
@@ -15,7 +15,13 @@ def get_skills(user_id):
 # @login_required
 def add_skill():
     print("POST RECEIVED")
-    return jsonify("RECEIVED POST")
+    new_skill = Skill()
+    print("ANYTHING IN HERE?" , request.json)
+    new_skill.name = request.json["name"]
+    new_skill.user_id = request.json["user_id"]
+    db.session.add(new_skill)
+    db.session.commit()
+    return new_skill.to_dict()
 
 @skills_routes.route('/<int:skill_id>', methods=['PUT'])
 # @login_required
