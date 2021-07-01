@@ -4,8 +4,24 @@ import { Provider } from 'react-redux'
 import './index.css';
 import App from './App';
 import configureStore from './store';
-import { ChakraProvider } from "@chakra-ui/react"
+import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 const store = configureStore();
+// const Menu = {
+//   baseStyle: {
+//     menu: {},
+//     item: {
+//       w: '100px',
+//       // or
+//       maxW: '100px'
+//     },
+//   }
+// }
+
+// const theme = extendTheme({
+//   components: {
+//     Menu
+//   }
+// })
 
 ReactDOM.render(
   <React.StrictMode>

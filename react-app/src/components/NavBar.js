@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "@chakra-ui/react"
 import { NavLink } from 'react-router-dom';
-import { Flex, Spacer } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/react"
 import { useSelector } from 'react-redux';
 import LogoutButton from './auth/LogoutButton';
 

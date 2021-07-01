@@ -1,12 +1,12 @@
 import React from 'react'
 import { NavLink, Route, Switch } from 'react-router-dom';
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import Skills from '../Skills';
 
 function Dashboard() {
     return (
         <>
-        <Flex h={'90vh'}>
+        <Flex h={'95vh'}>
                 <Flex direction='column' p={5} h={'100%'} w={'20vw'}>
                     <NavLink to="/dashboard">Home</NavLink>
                     <NavLink to="/dashboard/skills">Skills</NavLink>
