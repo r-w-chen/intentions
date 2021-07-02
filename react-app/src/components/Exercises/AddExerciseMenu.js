@@ -19,9 +19,11 @@ export default function AddExerciseMenu({ skills, selectedTab }) {
 	// When skills are received from useSelector, set the default for skillType to the first skill in the array
 	useEffect(() => {
 		if(skills.length){
+			// console.log('length', skills.length, skills[0])
 			setSkillType(skills[0].id)
+			// console.log('skillTYpe', skillType)
 		}
-	}, [skills.length])
+	}, [skills.length]) //react yelling at me to add dependencies I don't want to add?
 
 	// When selectedTab changes, change the select input's value to match the tab Id so it is shown at default
 	useEffect(() => {
@@ -43,7 +45,7 @@ export default function AddExerciseMenu({ skills, selectedTab }) {
 		setRender(notes)
 
 	}
-	// TODO:
+	// TODO: validations
 	return (
 			<>
 				<Button onClick={onOpen}>

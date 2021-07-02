@@ -28,10 +28,11 @@ const setEditExercise = exercise => {
 	}
 }
 
-const setDeleteExercise = exerciseId => {
+const setDeleteExercise = (exerciseId, skillId) => {
 	return {
 			type: DELETE_EXERCISE,
-			exerciseId
+			exerciseId,
+			skillId
 	}
 }
 
@@ -55,8 +56,31 @@ export const addExercise = exercise => async dispatch => {
 	}
 }
 
-export const getExercises = skillId => async dispatch => {
-	const res = await fetch(`/api/exercises/${skillId}`);
+export const getExercises = userId => async dispatch => {
+	const res = await fetch(`/api/exercises/${userId}`);
+	const data = await res.json();
+	// Nested object
+	const exercisesBySkllId = data.reduce((obj, e) => {
+		const skill_id = e.skill_id;
+		if(skill_id in obj){
+			obj[skill_id][e.id] = e;
+		} else {
+			obj[skill_id] = {[e.id]: e};
+		}
+		return obj;
+	}, {})
+
+	// Object + array
+	// const exercisesBySkllId = data.reduce((obj, e) => {
+	// 	const skill_id = e.skill_id;
+	// 	if(skill_id in obj){
+	// 		obj[skill_id].push(e);
+	// 	} else {
+	// 		obj[skill_id] = [e];
+	// 	}
+	// 	return obj;
+	// }, [])
+	dispatch(setExercises(exercisesBySkllId))
 }
 
 
@@ -67,10 +91,13 @@ export const updateExercise = exercise => async dispatch => {
 	})
 }
 
-export const deleteExercise = exerciseId => async dispatch => {
+export const deleteExercise = (exerciseId, skillId) => async dispatch => {
 	const res = await fetch(`/api/exercises/${exerciseId}`, {
 		method: 'DELETE'
 	})
+	if(res.ok){
+		dispatch(setDeleteExercise(exerciseId, skillId))
+	}
 }
 
 
@@ -81,7 +108,18 @@ export default function exercises(state = {}, action) {
 	switch(action.type){
 		case ADD_EXERCISE:
 			const { exercise } = action;
-			newState[exercise.id] = exercise
+			const skill = newState[exercise.skill_id];
+			if(skill){
+				skill[exercise.id] = exercise;
+			} else {
+				newState[exercise.skill_id] = {[exercise.id] : exercise}
+			}
+			return newState;
+		case SET_EXERCISES:
+			return action.exercises;
+		case DELETE_EXERCISE:
+			const exercisesForSkill = newState[action.skillId];
+			delete exercisesForSkill[action.exerciseId];
 			return newState;
 		default:
 			return newState;

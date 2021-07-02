@@ -13,7 +13,7 @@ function Dashboard() {
 
     useEffect(() => {
         dispatch(getSkills(user.id));
-    }, [dispatch])
+    }, [dispatch, user.id])
 
     return (
         <>

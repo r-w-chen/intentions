@@ -18,6 +18,7 @@ class Exercise(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "skill_id": self.skill_id,
             "name": self.name,
             "notes": self.notes
         }
@@ -26,5 +27,6 @@ class Exercise(db.Model):
         return {
             "id": self.id,
             "name": self.name,
+            "notes": self.notes,
             "skill": self.skill.to_dict()
         }

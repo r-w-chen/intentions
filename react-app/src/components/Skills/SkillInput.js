@@ -4,7 +4,7 @@ import { Flex, Button, Input, SlideFade, Text, useDisclosure } from '@chakra-ui/
 import { addSkill } from '../../store/skills';
 import { clearErrors } from '../../store/errors';
 
-export default function Skill_Input() {
+export default function SkillInput() {
     const [skillName, setSkillName] = useState('');
     const [showInput, setShowInput] = useState(false);
     const [invalidInput, setInvalidInput] = useState(false);
