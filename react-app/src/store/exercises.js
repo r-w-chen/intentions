@@ -3,7 +3,7 @@ import { setExercisesErrors, clearErrors } from "./errors";
 // ACTIONS
 const SET_EXERCISES = 'exercises/SET_EXERCISES';
 const ADD_EXERCISE = 'exercises/ADD_EXERCISE';
-const EDIT_EXERCISE = 'exercises/EDIT_EXERCISE';
+const EDIT_EXERCISE_NAME = 'exercises/EDIT_EXERCISE';
 const DELETE_EXERCISE = 'exercises/DELETE_EXERCISE';
 
 // ACTION CREATORS
@@ -21,9 +21,9 @@ const setAddExercise = exercise => {
 	}
 }
 
-const setEditExercise = exercise => {
+const setEditExerciseName = exercise => {
 	return {
-			type: EDIT_EXERCISE,
+			type: EDIT_EXERCISE_NAME,
 			exercise
 	}
 }
@@ -84,11 +84,21 @@ export const getExercises = userId => async dispatch => {
 }
 
 
-export const updateExercise = exercise => async dispatch => {
-	const res = await fetch(`/api/exercises/${exercise.id}`, {
+export const updateExerciseName = exercise => async dispatch => {
+	const res = await fetch(`/api/exercises/${exercise.id}/name`, {
 		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json'
+		},
 		body: JSON.stringify(exercise)
 	})
+	// TODO: add validations for edits
+	const data = await res.json();
+	console.log(data);
+	if(res.ok){
+		dispatch(setEditExerciseName(data))
+	}
+
 }
 
 export const deleteExercise = (exerciseId, skillId) => async dispatch => {
@@ -117,6 +127,11 @@ export default function exercises(state = {}, action) {
 			return newState;
 		case SET_EXERCISES:
 			return action.exercises;
+		case EDIT_EXERCISE_NAME:
+			const skillId = action.exercise.skill_id;
+			const exerciseId = action.exercise.id;
+			newState[skillId][exerciseId] = action.exercise;
+			return newState;
 		case DELETE_EXERCISE:
 			const exercisesForSkill = newState[action.skillId];
 			delete exercisesForSkill[action.exerciseId];

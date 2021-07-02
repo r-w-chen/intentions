@@ -14,7 +14,7 @@ export default function ExercisePanels({ skills }) {
         return newObj;
     })
 
-    console.log(exercisesBySkllId);
+    // console.log(exercisesBySkllId);
     const [currentExercise, setCurrentExercise] = useState('');
     
     /* 

@@ -39,20 +39,37 @@ def add_exercises():
 
     return jsonify("RECEIVED POST")
 
-@exercises_routes.route('/<int:exercise_id>', methods=['PUT'])
+# EDIT EXERCISE NAME
+@exercises_routes.route('/<int:exercise_id>/name', methods=['PUT'])
 # @login_required
-def edit_exercises(exercise_id):
-    print("PUT RECEIVED", exercise_id)
+def edit_exercise_name(exercise_id):
+    updated_exercise = request.json
+    print("PUT RECEIVED", updated_exercise)
+    exercise = Exercise.query.get(exercise_id)
+    exercise.name = updated_exercise['name']
+    db.session.add(exercise)
+    db.session.commit()
+
+    return exercise.to_dict()
+
+# EDIT EXERCISE NOTES
+@exercises_routes.route('/<int:exercise_id>/notes', methods=['PUT'])
+# @login_required
+def edit_exercise_notes(exercise_id):
+    updated_exercise = request.json
+    print("PUT RECEIVED", updated_exercise)
+    exercise = Exercise.query.get(exercise_id)
+    
     return jsonify("RECEIVED PUT")
 
 
 @exercises_routes.route('/<int:exercise_id>', methods=['DELETE'])
 # @login_required
-def delete_exercises(exercise_id):
+def delete_exercise(exercise_id):
     print("DELETE RECEIVED", exercise_id)
     exercise = Exercise.query.get(exercise_id)
 
     db.session.delete(exercise)
     db.session.commit()
-    
+
     return jsonify("RECEIVED DELETE")
