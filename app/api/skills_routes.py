@@ -8,9 +8,7 @@ skills_routes = Blueprint('skills', __name__)
 @skills_routes.route('/<int:user_id>')
 # @login_required
 def get_skills(user_id):
-    print("GET RECEIEVED", user_id)
     skills = Skill.query.filter(Skill.user_id == user_id).all()
-    print(skills)
     return {skill.id: skill.to_dict() for skill in skills}
 
 @skills_routes.route('/', methods=['POST'])

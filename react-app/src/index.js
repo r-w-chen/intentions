@@ -26,7 +26,7 @@ const store = configureStore();
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ChakraProvider>
+      <ChakraProvider >
         <App />
       </ChakraProvider>
     </Provider>
