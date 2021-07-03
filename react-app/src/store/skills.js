@@ -40,7 +40,7 @@ const setUpdatedSkill = updatedSkill => {
 export const getSkills = (userId) => async (dispatch) => {
     const res = await fetch(`/api/skills/${userId}`)
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     dispatch(setGetSkills(data));
 }
 export const addSkill = skill => async dispatch => {

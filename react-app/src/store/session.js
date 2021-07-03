@@ -52,8 +52,10 @@ export const logout = () => async (dispatch) => {
             "Content-Type": "application/json",
         }
     });
-    const data = await response.json();
-    dispatch(removeUser());
+    // const data = await response.json();
+    if(response.ok){
+        dispatch(removeUser());
+    }
 };
 
 

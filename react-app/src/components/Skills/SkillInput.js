@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Flex, Button, Input, SlideFade, Text, useDisclosure } from '@chakra-ui/react';
 import { addSkill } from '../../store/skills';
+import { clearErrors } from '../../store/errors';
 
-export default function Skill_Input() {
+export default function SkillInput() {
     const [skillName, setSkillName] = useState('');
     const [showInput, setShowInput] = useState(false);
     const [invalidInput, setInvalidInput] = useState(false);
@@ -31,8 +32,6 @@ export default function Skill_Input() {
         }
     }, [errors])
  
-
-    // TODO: Add validation for when input is empty
     const enterSkill = e => {
         if (e.key === "Enter"){
             const newSkill = {
@@ -49,6 +48,7 @@ export default function Skill_Input() {
     const toggleInput = (e) =>{
         onToggle();
         e.target.blur();
+        dispatch(clearErrors());
         setShowInput(prev => !prev);
         if(showInput){
             input.current.focus();
