@@ -14,16 +14,16 @@ export default function AddExerciseMenu({ skills, selectedTab }) {
 	const [name, setName] = useState('');
 	const [skillType, setSkillType] = useState('');
 	const [notes, setNotes] = useState('');
-	const [render, setRender] = useState(''); // for testing, remove when done
 
 	// When skills are received from useSelector, set the default for skillType to the first skill in the array
 	useEffect(() => {
+		// console.log('FIRST', skills)
 		if(skills.length){
 			// console.log('length', skills.length, skills[0])
 			setSkillType(skills[0].id)
 			// console.log('skillTYpe', skillType)
 		}
-	}, [skills.length]) //react yelling at me to add dependencies I don't want to add?
+	}, [skills]) // changed from skills.length to skills
 
 	// When selectedTab changes, change the select input's value to match the tab Id so it is shown at default
 	useEffect(() => {
@@ -42,7 +42,9 @@ export default function AddExerciseMenu({ skills, selectedTab }) {
 			notes
 		}
 		dispatch(addExercise(exercise));
-		setRender(notes)
+		onClose();
+		setNotes('');
+		setName('');
 
 	}
 	// TODO: validations
@@ -71,7 +73,6 @@ export default function AddExerciseMenu({ skills, selectedTab }) {
 								</Select>
 								<label>Add Exercise Notes Here</label>
 								<ReactQuill value={notes} onChange={value => setNotes(value)}/>
-								{render && render}
 							</FormControl>
 						</DrawerBody>
 						<DrawerFooter>

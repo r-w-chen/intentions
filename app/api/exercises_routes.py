@@ -8,9 +8,9 @@ exercises_routes = Blueprint('exercises', __name__)
 @exercises_routes.route('/<int:user_id>')
 # @login_required
 def get_exercises(user_id):
-    print("GET RECEIEVED", user_id)
+    # print("GET RECEIEVED", user_id)
     exercises = Exercise.query.filter(user_id == user_id).all()
-    print(exercises)
+    # print(exercises)
     
     return jsonify([exercise.to_dict() for exercise in exercises])
 
@@ -59,8 +59,11 @@ def edit_exercise_notes(exercise_id):
     updated_exercise = request.json
     print("PUT RECEIVED", updated_exercise)
     exercise = Exercise.query.get(exercise_id)
-    
-    return jsonify("RECEIVED PUT")
+    exercise.notes = updated_exercise['notes']
+    db.session.add(exercise)
+    db.session.commit()
+
+    return exercise.to_dict()
 
 
 @exercises_routes.route('/<int:exercise_id>', methods=['DELETE'])

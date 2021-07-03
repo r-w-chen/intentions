@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
-import { TabPanels, TabPanel, Stack, Box, Text, Flex } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import { TabPanels, TabPanel, Stack, Box } from '@chakra-ui/react';
+import { useSelector, useDispatch } from 'react-redux';
 import ReactQuill from 'react-quill';
 import SingleExercise from './SingleExercise';
-// Contains actual content for each tab
-export default function ExercisePanels({ skills }) {
-    // Convert exercises into array
+import { updateExerciseNotes } from '../../store/exercises';
+
+
+export default function ExercisePanels({ skills }) { // Contains actual content for each tab
+    // Convert exercises into array 
     const exercisesBySkllId = useSelector(state => {
         const newObj = {}
         for(let skillId in state.exercises){
@@ -13,10 +15,16 @@ export default function ExercisePanels({ skills }) {
         }
         return newObj;
     })
-
-    // console.log(exercisesBySkllId);
     const [currentExercise, setCurrentExercise] = useState('');
-    
+    const [notes, setNotes] = useState('');
+    const dispatch = useDispatch();
+
+    // change displayed notes when an exercise is selected
+    useEffect(() => {
+        if(currentExercise){
+            setNotes(currentExercise.notes);
+        }
+    }, [currentExercise])
     /* 
         When I open the drawer to add an exercise, 
         I want the select option or the form to automatically select the option
@@ -28,7 +36,20 @@ export default function ExercisePanels({ skills }) {
     * Split each TabPanel into a component => have a useEffect that makes a fetch each time 
     * Change how exercises are store in Redux {skill_id: { exercise_id: { exercise } }
     */
-    
+
+	// TODO: add validations for edits
+    // TODO: allow save on CMD/CTRL S 
+
+    const saveNotesOnBlur = () => {
+        // console.log('blurrrrrr', notes)
+        if(currentExercise && notes !== currentExercise.notes){
+            const exercise = {
+                id: currentExercise.id,
+                notes
+            }
+            dispatch(updateExerciseNotes(exercise))
+        }
+    }
 
     return (
         <>
@@ -43,8 +64,11 @@ export default function ExercisePanels({ skills }) {
                     {/* <Box bg='blue.100' w='60%' h='100%' m={5} p={3}>
                         {currentExercise && ReactHtmlParser(currentExercise.notes)}
                     </Box> */}
-                    {/* <ReactQuill value={currentExercise.notes}>
-                    </ReactQuill> */}
+                    <Box bg='white' m={5} h='100%' onBlur={saveNotesOnBlur}>
+                        <ReactQuill value={notes ? notes : 'Select an exercise to view notes'}
+                        onChange={value => setNotes(value)}
+                    />
+                    </Box>
                 </TabPanel>
             ))}
         </TabPanels>
