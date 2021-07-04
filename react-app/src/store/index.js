@@ -4,12 +4,13 @@ import session from "./session"
 import skills from "./skills";
 import exercises from "./exercises";
 import errors from "./errors";
-
+import createSessionExercises from "./create-session";
 const rootReducer = combineReducers({
     session,
     skills,
     exercises,
-    errors
+    errors,
+    createSessionExercises
 });
 
 

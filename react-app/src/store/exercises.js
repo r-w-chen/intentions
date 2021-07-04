@@ -70,7 +70,6 @@ export const getExercises = userId => async dispatch => {
 		}
 		return obj;
 	}, {})
-
 	// Object + array
 	// const exercisesBySkllId = data.reduce((obj, e) => {
 	// 	const skill_id = e.skill_id;
@@ -83,6 +82,7 @@ export const getExercises = userId => async dispatch => {
 	// }, [])
 	dispatch(setExercises(exercisesBySkllId))
 }
+
 
 
 export const updateExerciseName = exercise => async dispatch => {
