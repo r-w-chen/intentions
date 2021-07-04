@@ -3,12 +3,14 @@ import { Box, Flex, Input, FormLabel, FormControl, UnorderedList, ListItem, Butt
 import { AiOutlineMinus } from "react-icons/ai";
 import { useSelector, useDispatch } from 'react-redux';
 import { getExercisesBySkill } from '../../store/create-session';
+import { addSession } from '../../store/dashboard-sessions';
 import UnaddedSessions from './UnaddedSessions';
 
 export default function CreateSession() {
     // Hooks
     const skills = useSelector(state => Object.values(state.skills))
     const exercises = useSelector(state => state.createSessionExercises);
+    const user = useSelector(state => state.session.user);
 
     const dispatch = useDispatch();
     // State variables
@@ -30,8 +32,16 @@ export default function CreateSession() {
         setRemovedExerciseId(exercise.id);
     }
 
-    const createSession = () => {
-        console.log("CREATE", sessionName, sessionExercises);
+    const createSession = () => { // name, user_id, skill_id, session_exercises
+        const session = {
+            name: sessionName,
+            skill_id: selectedSkill,
+            user_id: user.id,
+            exercises: sessionExercises
+        }
+        console.log("CREATE", session);
+        dispatch(addSession(session));
+        // redirect to sessions after create?
 
     }
     // TODO: add validation for when session name is empty

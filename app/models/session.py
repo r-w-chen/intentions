@@ -18,6 +18,7 @@ class Session(db.Model):
         return {
             "id": self.id,
             "name": self.name,
+            "skill_id": self.skill_id,
             "exercises": [exercise.to_dict() for exercise in self.session_exercises]
         }
 
