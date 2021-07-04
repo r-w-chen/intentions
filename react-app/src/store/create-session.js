@@ -13,7 +13,7 @@ const setExercisesBySkill = (exercises) => {
 export const getExercisesBySkill = skillId => async dispatch => {
 	const res = await fetch(`/api/exercises/skill/${skillId}`);
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     if(res.ok){
         dispatch(setExercisesBySkill(data));
     }

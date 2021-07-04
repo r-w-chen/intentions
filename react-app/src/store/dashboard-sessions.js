@@ -45,9 +45,18 @@ export const addSession = session => async dispatch => {
     const data = await res.json();
     console.log(data)
     if(data.errors){
-        // update errors store
+        // TODO: update errors store
     } else {
         dispatch(setAddSession(data))
+    }
+}
+
+export const getSessions = userId => async dispatch => {
+    const res = await fetch(`/api/sessions/${userId}`);
+    const data = await res.json();
+    console.log("GET DATA", data);
+    if(res.ok){
+        dispatch(setSessions(data));
     }
 }
 
@@ -57,6 +66,8 @@ export default function dashboardSessions(state = {}, action) {
     switch(action.type) {
         case ADD_SESSION:
             return {...state, [action.session.id]: action.session}
+        case SET_SESSIONS:
+            return action.sessions
         default:
             return state;
     }

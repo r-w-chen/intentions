@@ -5,16 +5,17 @@ from app.models import Exercise, Session, Session_exercise, db
 sessions_routes = Blueprint('sessions', __name__)
 
 
-@sessions_routes.route('/<int:skill_id>')
+@sessions_routes.route('/<int:user_id>')
 # @login_required
-def get_sessions(skill_id):
-    print("GET RECEIEVED", skill_id)
-    return jsonify("RECEIVED GET")
+def get_sessions(user_id):
+    print("GET RECEIEVED", user_id)
+    sessions = Session.query.filter(Session.user_id == user_id).all()
+
+    return {session.id: session.to_dict() for session in sessions}
 
 @sessions_routes.route('/', methods=['POST'])
 # @login_required
 def add_sessions():
-    print("POST RECEIVED", request.json)
     data = request.json
     # Create new Session
     # Get session ID of created session
@@ -27,7 +28,8 @@ def add_sessions():
         db.session.add(session)
         db.session.commit()
         added_session = Session.query.order_by(Session.id.desc()).first()
-        print("QUERIED SESSION", added_session.id)
+        # print("QUERIED SESSION", added_session.id)
+        # Iterate through each exercise in list and create a session_exercise that ties to the recently created session
         for exercise in data['exercises']:
             session_exercise = Session_exercise()
             session_exercise.exercise_id = exercise['id']
