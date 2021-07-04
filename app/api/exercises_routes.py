@@ -9,9 +9,16 @@ exercises_routes = Blueprint('exercises', __name__)
 # @login_required
 def get_exercises(user_id):
     # print("GET RECEIEVED", user_id)
-    exercises = Exercise.query.filter(user_id == user_id).all()
+    exercises = Exercise.query.filter(Exercise.user_id == user_id).all()
     # print(exercises)
     
+    return jsonify([exercise.to_dict() for exercise in exercises])
+
+
+@exercises_routes.route('/skill/<int:skill_id>')
+def get_exercises_by_skill(skill_id):
+    print("GET RECEIVED", skill_id)
+    exercises = Exercise.query.filter(Exercise.skill_id == skill_id).all()
     return jsonify([exercise.to_dict() for exercise in exercises])
 
 @exercises_routes.route('/', methods=['POST'])

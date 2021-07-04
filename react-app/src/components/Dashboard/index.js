@@ -5,6 +5,8 @@ import { Flex } from '@chakra-ui/react';
 import { getSkills } from '../../store/skills';
 import Skills from '../Skills';
 import Exercises from '../Exercises';
+import Sessions from '../Sessions';
+import CreateSession from '../CreateSession';
 
 function Dashboard() {
 
@@ -23,6 +25,7 @@ function Dashboard() {
                     <NavLink to="/dashboard/skills">Skills</NavLink>
                     <NavLink to="/dashboard/sessions">Sessions</NavLink>
                     <NavLink to="/dashboard/exercises">Exercises</NavLink>
+                    <NavLink to="/dashboard/create-session">Create Session</NavLink>
                 </Flex>
                 
             <Switch>
@@ -35,7 +38,10 @@ function Dashboard() {
                     <Skills />
                 </Route>
                 <Route path="/dashboard/sessions">
-                    <h1>Sessions Page</h1>
+                    <Sessions />
+                </Route>
+                <Route path="/dashboard/create-session">
+                    <CreateSession />
                 </Route>
                 <Route path="/dashboard/exercises">
                     <Exercises />

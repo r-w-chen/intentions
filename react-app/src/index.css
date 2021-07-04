@@ -53,7 +53,10 @@
   a{
       text-decoration: none;
   }
-  
+
+  li{
+    list-style-type: none;
+  }
 
   #root {
     min-height: 100vh; 
@@ -63,3 +66,14 @@
   .ql-editor{
     min-height: 400px;
   }
+
+  .skill-tabs{
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+  }
+
+  .skill-tabs::-webkit-scrollbar {
+    display: none; 
+  }
+
+ 
