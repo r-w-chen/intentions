@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Flex, FormControl, FormLabel, Input, Button} from '@chakra-ui/react';
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
@@ -39,46 +40,48 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
+    <Flex justify='center' align='center' w='100%' h='100%' p={5}>
+    <FormControl as='form' onSubmit={onSignUp} bg='#ECECEC' w='50%' p={5} borderRadius='md' boxShadow='lg'>
       <div>
-        <label>User Name</label>
-        <input
+        <FormLabel>User Name</FormLabel>
+        <Input
           type="text"
           name="username"
           onChange={updateUsername}
           value={username}
-        ></input>
+        ></Input>
       </div>
       <div>
-        <label>Email</label>
-        <input
+        <FormLabel>Email</FormLabel>
+        <Input
           type="text"
           name="email"
           onChange={updateEmail}
           value={email}
-        ></input>
+        ></Input>
       </div>
       <div>
-        <label>Password</label>
-        <input
+        <FormLabel>Password</FormLabel>
+        <Input
           type="password"
           name="password"
           onChange={updatePassword}
           value={password}
-        ></input>
+        ></Input>
       </div>
       <div>
-        <label>Repeat Password</label>
-        <input
+        <FormLabel>Repeat Password</FormLabel>
+        <Input
           type="password"
           name="repeat_password"
           onChange={updateRepeatPassword}
           value={repeatPassword}
           required={true}
-        ></input>
+        ></Input>
       </div>
-      <button type="submit">Sign Up</button>
-    </form>
+      <Button type="submit">Sign Up</Button>
+    </FormControl>
+    </Flex>
   );
 };
 

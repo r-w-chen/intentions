@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Flex, FormControl, FormLabel, Input, Button} from '@chakra-ui/react';
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
@@ -31,34 +32,36 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error) => (
-          <div>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          name="email"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type="submit">Login</button>
-      </div>
-    </form>
+    <Flex justify='center' align='center' w='100%' h='100%' p={5}>
+      <FormControl as='form' onSubmit={onLogin} bg='#ECECEC' w='50%' p={5} borderRadius='md' boxShadow='lg'>
+        <div>
+          {errors.map((error) => (
+            <div>{error}</div>
+          ))}
+        </div>
+        <div>
+          <FormLabel htmlFor="email">Email</FormLabel>
+          <Input
+            name="email"
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={updateEmail}
+          />
+        </div>
+        <div>
+          <FormLabel htmlFor="password">Password</FormLabel>
+          <Input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={updatePassword}
+          />
+          <Button type="submit">Login</Button>
+        </div>
+      </FormControl>
+    </Flex>
   );
 };
 
