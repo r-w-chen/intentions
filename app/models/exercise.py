@@ -13,7 +13,7 @@ class Exercise(db.Model):
     skill = db.relationship("Skill", back_populates="exercises")
     user = db.relationship("User", back_populates="exercises")
     # Shows the sessions that this exercise is currently used in
-    session_exercises = db.relationship("Session_exercise", back_populates="exercise")
+    session_exercises = db.relationship("Session_exercise", back_populates="exercise", cascade="all, delete-orphan")
     
     def to_dict(self):
         return {
