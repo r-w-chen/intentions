@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ReactQuill from 'react-quill';
 import SingleExercise from './SingleExercise';
 import { updateExerciseNotes } from '../../store/exercises';
+import styles from '../../css.modules/Dashboard.module.css';
 
 
 export default function ExercisePanels({ skills }) { // Contains actual content for each tab
@@ -56,15 +57,12 @@ export default function ExercisePanels({ skills }) { // Contains actual content 
         <TabPanels h='80%'>
             {skills.map(skill => (
                 <TabPanel key={skill.id} h='100%' display='flex'>
-                    <Stack bg='blue.100' w='40%' h='100%' m={5} p={3} spacing={1} overflow='scroll'>
+                    <Stack borderRadius='lg' m={5} p={3} spacing={5} className={styles.exerciseList} boxShadow='lg'>
                         {exercisesBySkllId[skill.id]?.map(exercise => (
                             <SingleExercise exercise={exercise} setCurrentExercise={setCurrentExercise} key={exercise.id}/>
                         ))}
                     </Stack>
-                    {/* <Box bg='blue.100' w='60%' h='100%' m={5} p={3}>
-                        {currentExercise && ReactHtmlParser(currentExercise.notes)}
-                    </Box> */}
-                    <Box bg='white' m={5} h='100%' onBlur={saveNotesOnBlur}>
+                    <Box bg='white' m={5} onBlur={saveNotesOnBlur}>
                         <ReactQuill value={notes ? notes : 'Select an exercise to view notes'}
                         onChange={value => setNotes(value)}
                     />

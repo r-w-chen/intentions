@@ -1,0 +1,19 @@
+.dashboardContainer{
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 50px;
+    bottom: 0px;
+}
+.navLink {
+    display: inline-block;
+    width: 100%;
+    margin: 10px 0px;
+    padding-left: 10px;
+    transition: 100ms;
+}
+
+.navLink:hover{
+    color: #4d6f99;
+    border-right: 3px solid #4d6f99;
+}

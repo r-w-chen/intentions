@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getExercisesBySkill } from '../../store/create-session';
 import { addSession } from '../../store/dashboard-sessions';
 import UnaddedSessions from './UnaddedSessions';
+import styles from '../../css.modules/Dashboard.module.css';
 
 export default function CreateSession() {
     // Hooks
@@ -48,7 +49,7 @@ export default function CreateSession() {
     // possible TODO: implement auto-complete functionality
     return (
         <>
-        <Flex direction='column' w='100vw' bg='red.100' >
+        <Flex direction='column' boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>
             <Box w='50%' m={5} pos='relative'>
             <Input bg='white'
              value={searchString}

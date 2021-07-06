@@ -11,7 +11,7 @@ export default function SessionPanels({ skills }) {
         <TabPanels>
             {skills.map(skill => (
                 <TabPanel>
-                    <SimpleGrid columns={[1, 2, 3, null, 4]} spacing={10} overflow='scroll'>
+                    <SimpleGrid columns={[1, null, 2, 3, 4]} spacing={10}>
                     {sessions.length ? sessions.filter(session => skill.id === session.skill_id)?.map(session => (
                         <SessionCard session={session} />
                     )) : null}

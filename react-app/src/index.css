@@ -89,3 +89,11 @@ li{
 }
 
  
+.active{
+  color: #4d6f99;
+  border-right: 3px solid #4d6f99;
+}
+
+.active-navbar{
+  border-bottom: 3px solid #385170;
+}

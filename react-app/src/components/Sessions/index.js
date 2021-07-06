@@ -4,6 +4,7 @@ import { Tabs } from '@chakra-ui/react';
 import SkillTabs from '../SkillTabs';
 import SessionPanels from './SessionPanels';
 import { getSessions } from '../../store/dashboard-sessions';
+import styles from '../../css.modules/Dashboard.module.css';
 export default function Sessions() {    
     // Hooks
     const user = useSelector(state => state.session.user);
@@ -20,7 +21,7 @@ export default function Sessions() {
     }, [dispatch])
 
     return (
-        <Tabs w='80%' bg='red.100'>
+        <Tabs boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>
             <SkillTabs skills={skills} setSelectedTab={setSelectedTab}/>
             <SessionPanels skills={skills}/>
         </Tabs>
