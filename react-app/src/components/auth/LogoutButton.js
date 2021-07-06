@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from '@chakra-ui/react';
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 
@@ -8,7 +9,9 @@ const LogoutButton = () => {
     await dispatch(logout());
   };
 
-  return <button onClick={onLogout}>Logout</button>;
+  return <Button transition='100ms' borderRadius='full' bg='#385170' color='#ECECEC' m='0 10px'
+  _hover={{bg:'#142D4C'}}
+  onClick={onLogout}>Logout</Button>;
 };
 
 export default LogoutButton;

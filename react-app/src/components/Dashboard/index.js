@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, Switch } from 'react-router-dom';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Icon } from '@chakra-ui/react';
+import { BsCardChecklist, BsBook, BsHouseDoor, BsPencil, BsFolderCheck } from "react-icons/bs";
 import { getSkills } from '../../store/skills';
 import Skills from '../Skills';
 import Exercises from '../Exercises';
 import Sessions from '../Sessions';
 import CreateSession from '../CreateSession';
+import styles from '../../css.modules/SideNav.module.css';
 
 function Dashboard() {
 
@@ -19,19 +21,18 @@ function Dashboard() {
 
     return (
         <>
-        <Flex h={'95vh'}>
-                <Flex direction='column' p={5} h={'100%'} w={'20vw'}>
-                    <NavLink to="/dashboard">Home</NavLink>
-                    <NavLink to="/dashboard/skills">Skills</NavLink>
-                    <NavLink to="/dashboard/sessions">Sessions</NavLink>
-                    <NavLink to="/dashboard/exercises">Exercises</NavLink>
-                    <NavLink to="/dashboard/create-session">Create Session</NavLink>
+        <Flex className={styles.dashboardContainer}>
+                <Flex direction='column' h={'100%'} w={'250px'} bg='#ECECEC85' >
+                    <NavLink to="/dashboard/home" className={styles.navLink}><Icon as={BsHouseDoor} m={2}/> Home</NavLink>
+                    <NavLink to="/dashboard/skills" className={styles.navLink}><Icon as={BsFolderCheck} m={2}/> Skills</NavLink>
+                    <NavLink to="/dashboard/sessions" className={styles.navLink}><Icon as={BsCardChecklist} m={2}/> Sessions</NavLink>
+                    <NavLink to="/dashboard/exercises" className={styles.navLink}><Icon as={BsBook} m={2}/> Exercises</NavLink>
+                    <NavLink to="/dashboard/create-session" className={styles.navLink}><Icon as={BsPencil} m={2}/> Create Session</NavLink>
                 </Flex>
                 
             <Switch>
-
                 {/* DASHBOARD ROUTES */}
-                <Route exact path="/dashboard">
+                <Route exact path="/dashboard/home">
                     <h1>Home Page</h1>
                 </Route>
                 <Route path="/dashboard/skills">

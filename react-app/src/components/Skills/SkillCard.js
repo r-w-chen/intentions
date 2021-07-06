@@ -33,7 +33,7 @@ export default function SkillCard({skill}) {
 
     return (
         <>
-            <Flex borderRadius='md' boxShadow='md' h={200} m={5} bg='gray.200' key={skill.id}
+            <Flex borderRadius='md' boxShadow='lg' h={200} m={5} bg='#ECECEC' border='1px solid lightgray'
             justify='space-between'
             >
                 {editMode ? 

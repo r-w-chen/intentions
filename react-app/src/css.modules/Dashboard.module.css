@@ -1,0 +1,35 @@
+/* 
+ECECEC
+9FD3C7
+385170
+142D4C
+*/
+.dashboardContent{
+    width: 100%;
+    overflow: scroll;
+    background: #9FD3C780;
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+  }
+  
+.dashboardContent::-webkit-scrollbar {
+    display: none; 
+}
+  
+
+
+/* EXERCISES */
+.exerciseList {
+    overflow: scroll;
+    width: 40%;
+    height: 100%;
+    background: #8bbbb0;
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+}
+.exerciseList::-webkit-scrollbar {
+    display: none; 
+}
+.exerciseBox {
+    background: #ECECEC;
+}

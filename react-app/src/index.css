@@ -1,79 +1,99 @@
-/* TODO Add site wide styles */
-/* * {
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300&family=Noto+Sans&family=Quicksand:wght@300&display=swap');
+
+* {
     box-sizing: border-box;
   }
+html, body {
+  width: 100%;
+  height: 100%;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+ol,
+li,
+ul,
+div,
+span,
+body,
+header,
+nav {
+  font-size: 1rem;
+  color: inherit;
+  /* background-color: transparent; */
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  font-weight: normal;
+  /* list-style-type: none; */
+  /* font-family: 'Hind Siliguri', sans-serif; */
+  font-family: 'Noto Sans', sans-serif;
+  /* font-family: 'Quicksand', sans-serif; */
+  color: #142D4C;
+}
   
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  a,
-  ol,
-  li,
-  ul,
-  div,
-  span,
-  body,
-  header,
-  nav {
-    font-size: 1rem;
-    color: inherit;
-    background-color: transparent;
-    margin: 0;
-    padding: 0;
-    outline: 0;
-    font-weight: normal;
-    list-style-type: none;
-  } */
-/*   
   button {
     border: none;
     outline: none;
     cursor: pointer;
     font-weight: bold;
   }
-   */
-  input,
-  textarea,
-  select {
-    border: 1px solid lightgray;
   
-  }
+
+
   
-  input:focus,
-  textarea:focus,
-  select:focus {
-    outline: none;
-    border: 1px solid gray;
-    box-shadow: 0 0 5px lightgray;
-  }
+input,
+textarea,
+select {
+  /* border: 1px solid lightgray; */
 
-  a{
-      text-decoration: none;
-  }
+}
 
-  li{
-    list-style-type: none;
-  }
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border: 1px solid gray;
+  box-shadow: 0 0 5px lightgray;
+}
 
-  #root {
-    min-height: 100vh; 
-    /* min-width: 100vw; */
-  }
+a{
+    text-decoration: none;
+}
 
-  .ql-editor{
-    min-height: 400px;
-  }
+li{
+  list-style-type: none;
+}
 
-  .skill-tabs{
-    -ms-overflow-style: none;
-    scrollbar-width: none; 
-  }
+#root {
+  min-height: 100%; 
+  /* min-width: 100vw; */
+  background: repeating-linear-gradient(135deg, #ECECEC 0%, #9FD3C7 50%);
+}
 
-  .skill-tabs::-webkit-scrollbar {
-    display: none; 
-  }
+.ql-editor{
+  min-height: 400px;
+}
+
+.skill-tabs{
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+}
+
+.skill-tabs::-webkit-scrollbar {
+  display: none; 
+}
 
  
+.active{
+  color: #4d6f99;
+  border-right: 3px solid #4d6f99;
+}
+
+.active-navbar{
+  border-bottom: 3px solid #385170;
+}

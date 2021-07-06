@@ -4,6 +4,7 @@ import { Popover, PopoverTrigger, PopoverContent, PopoverHeader, PopoverBody, Po
          Flex, Text, Button, Input} from '@chakra-ui/react';
 import EditDeleteMenu from './EditDeleteMenu';
 import { deleteExercise, updateExerciseName } from '../../store/exercises';
+import styles from '../../css.modules/Dashboard.module.css';
 
 export default function SingleExercise({exercise, setCurrentExercise}) {
     const [isHovered, setIsHovered] = useState(false);
@@ -39,7 +40,7 @@ export default function SingleExercise({exercise, setCurrentExercise}) {
         onClose={closeDelete}
         >
             <PopoverTrigger>
-            <Flex h={75} p={5} border='1px' justify='space-between' 
+            <Flex h={75} p={5} borderRadius='lg' boxShadow='lg' justify='space-between' className={styles.exerciseBox} 
             onClick={() => setCurrentExercise(exercise)}
             onMouseOver={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}

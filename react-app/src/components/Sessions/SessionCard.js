@@ -12,7 +12,7 @@ export default function SessionCard({ session }) {
     }
     console.log(`SESSION`)
     return (
-        <Box w='90%' h={300} borderRadius='md' boxShadow='md' bg='gray.100'
+        <Box w='90%' h={300} borderRadius='md' boxShadow='lg' bg='#ECECEC' border='1px solid lightgray'
          onMouseOver={revealExercises}
          onMouseLeave={hideExercises}
         >  

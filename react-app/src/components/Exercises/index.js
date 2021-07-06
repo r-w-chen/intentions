@@ -5,7 +5,7 @@ import SkillTabs from '../SkillTabs';
 import ExercisePanels from './ExercisePanels';
 import AddExerciseMenu from './AddExerciseMenu';
 import { getExercises } from '../../store/exercises';
-
+import styles from '../../css.modules/Dashboard.module.css';
 export default function Exercises() {
     // Hooks
     const skills = useSelector(state => Object.values(state.skills));
@@ -20,7 +20,7 @@ export default function Exercises() {
     }, [dispatch, user.id])
 
     return (
-        <Tabs w='80%' bg='red.100'>
+        <Tabs boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>
             <SkillTabs skills={skills} setSelectedTab={setSelectedTab}/>
             <AddExerciseMenu skills={skills} selectedTab={selectedTab}/>
             <ExercisePanels skills={skills}/>
