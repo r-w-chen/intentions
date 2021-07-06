@@ -62,7 +62,7 @@ export default function ExercisePanels({ skills }) { // Contains actual content 
                             <SingleExercise exercise={exercise} setCurrentExercise={setCurrentExercise} key={exercise.id}/>
                         ))}
                     </Stack>
-                    <Box bg='white' m={5} onBlur={saveNotesOnBlur}>
+                    <Box bg='white' m={5} onBlur={saveNotesOnBlur} className={styles.exerciseNotes} borderRadius='lg' boxShadow='lg'>
                         <ReactQuill value={notes ? notes : 'Select an exercise to view notes'}
                         onChange={value => setNotes(value)}
                     />

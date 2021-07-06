@@ -30,6 +30,14 @@ ECECEC
 .exerciseList::-webkit-scrollbar {
     display: none; 
 }
+
+.exerciseNotes {
+    width: 50%;
+    height: 100%;
+    /* overflow: hidden; */
+}
 .exerciseBox {
     background: #ECECEC;
 }
+
+

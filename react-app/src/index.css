@@ -76,7 +76,13 @@ li{
 }
 
 .ql-editor{
-  min-height: 400px;
+  min-height: 100%;
+  background: white;
+}
+
+.quill {
+  height: 90%;
+
 }
 
 .skill-tabs{
