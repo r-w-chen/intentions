@@ -10,15 +10,22 @@ export default function Sessions() {
     const user = useSelector(state => state.session.user);
     const skills = useSelector(state => Object.values(state.skills));
     const dispatch = useDispatch();
-
+    // console.log("SKILLS", skills)
     // State Variables  
     const [selectedTab, setSelectedTab] = useState('');
-
+    console.log('CURRENT TAB', selectedTab);
+    
     useEffect(() => {
         if(user){
             dispatch(getSessions(user.id))
         }
     }, [dispatch])
+
+    useEffect(() => {
+        if(skills.length){
+            setSelectedTab(skills[0].id)
+        }
+    }, [skills])
 
     return (
         <Tabs boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>

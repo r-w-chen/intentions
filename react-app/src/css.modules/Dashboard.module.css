@@ -85,6 +85,7 @@ ECECEC
     transform: rotateY(180deg);
     justify-content: center;
     align-items: center;
+    overflow: scroll;
     /* backface-visibility: hidden; */
 }
 .sessionIconMenu {
@@ -100,4 +101,8 @@ ECECEC
 
 .sessionIcons:hover{
     color: #9FD3C7;
+}
+
+.deleteSessionConfirm{
+    width: 100px;
 }

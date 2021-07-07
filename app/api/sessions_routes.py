@@ -41,6 +41,16 @@ def add_sessions():
         return {'errors': ['Please specify a session name']}
     
 
+@sessions_routes.route('/exercise/<int:session_id>', methods=['POST'])
+def add_session_exercise(session_id):
+    print("ADD SESSION EXERCISE RECEIVED", session_id, request.json)
+    session_exercise = Session_exercise()
+    session_exercise.exercise_id = request.json
+    session_exercise.session_id = session_id
+    db.session.add(session_exercise)
+    db.session.commit()
+    return session_exercise.to_dict()
+
 @sessions_routes.route('/<int:session_id>', methods=['PUT'])
 # @login_required
 def edit_sessions(session_id):
@@ -52,4 +62,16 @@ def edit_sessions(session_id):
 # @login_required
 def delete_sessions(session_id):
     print("DELETE RECEIVED", session_id)
-    return jsonify("RECEIVED DELETE")
+    session = Session.query.get(session_id)
+    db.session.delete(session)
+    db.session.commit()
+    return jsonify(session.id)
+
+@sessions_routes.route('/exercise/<int:session_exercise_id>', methods=['DELETE'])
+def delete_session_exercise(session_exercise_id):
+    print("DELETE SESSION RECEIVED", session_exercise_id)
+    session_exercise = Session_exercise.query.get(session_exercise_id)
+    db.session.delete(session_exercise)
+    db.session.commit()
+    return jsonify(session_exercise_id)
+

@@ -12,13 +12,13 @@ class Session(db.Model):
     skill = db.relationship("Skill", back_populates="sessions")
     user = db.relationship("User", back_populates="sessions")
     # One session will have many session_exercises
-    session_exercises = db.relationship("Session_exercise", back_populates="session")
+    session_exercises = db.relationship("Session_exercise", back_populates="session", cascade="all, delete-orphan")
     
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
             "skill_id": self.skill_id,
-            "exercises": [exercise.to_dict() for exercise in self.session_exercises]
+            "exercises": {exercise.id: exercise.to_dict() for exercise in self.session_exercises}
         }
 

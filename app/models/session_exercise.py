@@ -17,6 +17,7 @@ class Session_exercise(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "session_id": self.session_id,
             "exercise": self.exercise.to_dict(),
             "quantity": self.quantity,
             "time": self.time
