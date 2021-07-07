@@ -1,34 +1,45 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { Box, Flex, Text, UnorderedList, ListItem, Icon } from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box, Flex, Text, UnorderedList, ListItem, Icon, Input, Button } from '@chakra-ui/react';
 import { TiArrowBackOutline, TiEdit } from 'react-icons/ti';
 import { AiOutlineMinus } from 'react-icons/ai';
+import { FaRegCalendarCheck } from 'react-icons/fa';
 import DeleteSession from './DeleteSession';
 import styles from '../../css.modules/Dashboard.module.css';
 import { deleteSessionExercise } from '../../store/dashboard-sessions';
+import { addTodo } from '../../store/todo-sessions';
 export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
+    // Hooks
     const dispatch = useDispatch();
-    // const [isHovered, setIsHovered] = useState(false);
+    const user = useSelector(state => state.session.user);
+    // State variables
     const [isFlipped, setIsFlipped] = useState(false);
-    /*
-        If I want to be able to add sessions from here, I need a state that identifies the 
-        currently selected session 
-        Only one card should be flipped at any given time
-        TODO: start by getting it so session_exercises can be removed 
-    */
+    const [revealDate, setRevealDate] = useState(false);
+    const [date, setDate] = useState(''); // 2021-07-12 , comes as string
 
+    // Handlers
     const flipCard = () => setIsFlipped(prev => !prev);
+
     const changeCard = () => {
         setSelectedCard(session.id);
     }
     const handleDeleteExercise = (sessionExerciseId) => {
         dispatch(deleteSessionExercise(sessionExerciseId, session.id))
     }
+
+    const handleScheduleSession = () => {
+        const todo = {
+            session_id: session.id,
+            user_id: user.id,
+            date
+        }
+        dispatch(addTodo(todo));
+    }
     return (
         <Box w='100%' h={250} borderRadius='md' boxShadow='lg' bg='#ECECEC' border='1px solid lightgray' transition='300ms'
          position='relative' className={selectedCard === session.id ? styles.back: styles.front}
         >   
-            <Flex className={selectedCard === session.id ? styles.frontSideFlipped : styles.frontSide} >
+            <Flex flexDir='column' className={selectedCard === session.id ? styles.frontSideFlipped : styles.frontSide} >
                 <Flex justify='space-between' w='100%' m={5}>
                     <Text>{session.name}</Text>
                     <Flex className={styles.sessionIconMenu}>
@@ -36,8 +47,17 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
                         onClick={changeCard}
                         />
                         <DeleteSession session={session}/>
+                        <Icon as={FaRegCalendarCheck} boxSize={5} m={1} className={styles.sessionIcons}  
+                        onClick={() => setRevealDate(prev => !prev)}
+                        />
                     </Flex>
                 </Flex>
+                {revealDate &&
+                <Flex flexDir='column'>
+                    <Input type='datetime-local' value={date} onChange={e => setDate(e.target.value)} />
+                    <Button onClick={handleScheduleSession}>Schedule</Button>
+                </Flex>
+                }
             </Flex>
             <Flex flexDir='column' justify='start' className={selectedCard === session.id ? styles.backSide : styles.backSideFlipped}>
                 <Flex justify='space-between' w='100%' p={5}>

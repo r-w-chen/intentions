@@ -12,8 +12,6 @@ export default function SessionPanels({ skills }) {
     const [selectedCard, setSelectedCard] = useState(null); // holds session_id of currently selected session
 
     const addExerciseToCurrentCard = (exerciseId) => {
-        // dispatch
-
         const currentSession = sessions[selectedCard];  //grab the session obj
         const sessionExercises = Object.values(currentSession.exercises); // grab the associated session_exercises as a list
         const includesExercise = sessionExercises.some(ex => ex.exercise.id === exerciseId) // check if any of the session_exercises have the same id as the exercise I'm adding
