@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Flex, Text, UnorderedList, ListItem, Icon, Input, Button } from '@chakra-ui/react';
 import { TiArrowBackOutline, TiEdit } from 'react-icons/ti';
@@ -28,10 +29,14 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
     }
 
     const handleScheduleSession = () => {
+        const date_scheduled = moment(date).utc().format();
+        const convertedToLocal = moment(date_scheduled).format();
+        // console.log('now', moment())
+        console.log('input', date, '\nUTC', date_scheduled, '\nconertedback', convertedToLocal);
         const todo = {
             session_id: session.id,
             user_id: user.id,
-            date
+            date: date_scheduled
         }
         dispatch(addTodo(todo));
     }

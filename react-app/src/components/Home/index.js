@@ -4,6 +4,8 @@ import styles from '../../css.modules/Dashboard.module.css';
 import TodaysTodos from './TodaysTodos';
 
 export default function Home() {
+    const date = Date().split(' ').slice(1, 4).join(' ');
+    // console.log(date);
     return (
         <Box boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>
             <Flex h='45%' p={3} m={5} boxShadow='lg' borderRadius='lg' bg='#ECECEC'>

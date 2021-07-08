@@ -43,9 +43,12 @@ export const addTodo = (todo) => async dispatch => {
         },
         body: JSON.stringify(todo)
     })
-
     const data = await res.json();
-    dispatch(setAddTodo(data))
+    if(data.error){
+        return;
+    } else {
+        dispatch(setAddTodo(data))
+    }
 
 }
 
