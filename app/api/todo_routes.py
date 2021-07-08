@@ -10,7 +10,9 @@ todos_routes = Blueprint('todos', __name__)
 # @login_required
 def get_todos(user_id):
     print("GET TODO", user_id)
-    return jsonify("GET TODO RECEIVED")
+    todos = TodoSession.query.filter(TodoSession.user_id == user_id).all()
+
+    return {todo.id: todo.to_dict() for todo in todos}
 
 
 @todos_routes.route('/', methods=['POST'])

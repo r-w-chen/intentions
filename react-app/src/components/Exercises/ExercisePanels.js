@@ -54,9 +54,9 @@ export default function ExercisePanels({ skills }) { // Contains actual content 
 
     return (
         <>
-        <TabPanels h='80%'>
+        <TabPanels h='100%' w='100%'>
             {skills.map(skill => (
-                <TabPanel key={skill.id} h='100%' display='flex'>
+                <TabPanel key={skill.id} h='80%' display='flex'>
                     <Stack borderRadius='lg' m={5} p={3} spacing={5} className={styles.exerciseList} boxShadow='lg'>
                         {exercisesBySkllId[skill.id]?.map(exercise => (
                             <SingleExercise exercise={exercise} setCurrentExercise={setCurrentExercise} key={exercise.id}/>

@@ -1,5 +1,6 @@
 // ACTIONS
 const ADD_TODO = 'todo-sessions/ADD_TODO';
+const SET_TODOS = 'todo-sessions/SET_TODOS';
 const REMOVE_TODO = 'todo-sessions/REMOVE_TODO';
 
 
@@ -11,6 +12,13 @@ const setAddTodo = (todo) => {
     }
 }
 
+const setTodos = todos => {
+    return {
+        type: SET_TODOS,
+        todos
+    }
+}
+
 const removeTodo = todoId => {
     return {
         type: REMOVE_TODO,
@@ -19,6 +27,13 @@ const removeTodo = todoId => {
 }
 
 // THUNKS
+export const getTodos = (userId) => async dispatch => {
+    const res = await fetch(`/api/todos/${userId}`)
+    const data = await res.json();
+    if(res.ok){
+        dispatch(setTodos(data));
+    }
+}
 
 export const addTodo = (todo) => async dispatch => {
     const res = await fetch('/api/todos/', {
@@ -28,7 +43,10 @@ export const addTodo = (todo) => async dispatch => {
         },
         body: JSON.stringify(todo)
     })
-    console.log(todo)
+
+    const data = await res.json();
+    dispatch(setAddTodo(data))
+
 }
 
 export const deleteTodo = (todo) => async dispatch => {
@@ -38,8 +56,14 @@ export const deleteTodo = (todo) => async dispatch => {
 // REDUCER
 
 export default function todoSessions(state = {}, action){
-    
+    let newState
     switch(action.type){
+        case SET_TODOS:
+            return action.todos;
+        case ADD_TODO :
+            newState = JSON.parse(JSON.stringify(state));
+            newState[action.todo.id] = action.todo
+            return newState;
         default:
             return state;
     }

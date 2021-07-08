@@ -4,6 +4,8 @@ import { NavLink, Route, Switch } from 'react-router-dom';
 import { Flex, Icon } from '@chakra-ui/react';
 import { BsCardChecklist, BsBook, BsHouseDoor, BsPencil, BsFolderCheck } from "react-icons/bs";
 import { getSkills } from '../../store/skills';
+import { getTodos } from '../../store/todo-sessions';
+import Home from '../Home';
 import Skills from '../Skills';
 import Exercises from '../Exercises';
 import Sessions from '../Sessions';
@@ -17,6 +19,7 @@ function Dashboard() {
 
     useEffect(() => {
         dispatch(getSkills(user.id));
+        dispatch(getTodos(user.id));
     }, [dispatch, user.id])
 
     return (
@@ -33,7 +36,7 @@ function Dashboard() {
             <Switch>
                 {/* DASHBOARD ROUTES */}
                 <Route exact path="/dashboard/home">
-                    <h1>Home Page</h1>
+                    <Home />
                 </Route>
                 <Route path="/dashboard/skills">
                     <Skills />
