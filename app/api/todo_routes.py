@@ -10,11 +10,16 @@ todos_routes = Blueprint('todos', __name__)
 # @login_required
 def get_todos(user_id):
     print("GET TODO", user_id)
-    todos = TodoSession.query.filter(TodoSession.user_id == user_id).all()
+    todos = (TodoSession.query.filter(TodoSession.user_id == user_id)
+                               .order_by(TodoSession.date_scheduled.asc())
+                               .all())
+    for todo in todos:
+        print("AMEN", todo.id)
     # todays_todos = todos.filter()
 
-    print("WHAT DIS", todos[0].date_scheduled, type(todos[0].date_scheduled))
-    return {todo.id: todo.to_dict() for todo in todos}
+    # print("WHAT DIS", todos[0].date_scheduled, type(todos[0].date_scheduled))
+    # return {f'asdfasd+{todo.id}': todo.to_dict() for todo in todos}
+    return jsonify([todo.to_dict() for todo in todos])
 
 
 @todos_routes.route('/', methods=['POST'])

@@ -1,3 +1,9 @@
+const normalize = (arr) => {
+    return arr.reduce((acc, obj) => {
+        acc[`+${obj.id}`] = obj
+        return acc;
+    }, {})
+}
 // ACTIONS
 const ADD_TODO = 'todo-sessions/ADD_TODO';
 const SET_TODOS = 'todo-sessions/SET_TODOS';
@@ -30,8 +36,9 @@ const removeTodo = todoId => {
 export const getTodos = (userId) => async dispatch => {
     const res = await fetch(`/api/todos/${userId}`)
     const data = await res.json();
+
     if(res.ok){
-        dispatch(setTodos(data));
+        dispatch(setTodos(normalize(data)));
     }
 }
 
