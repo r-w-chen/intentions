@@ -19,6 +19,14 @@ const LoginForm = () => {
     }
   };
 
+  const demoLogin = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login('demo@aa.io', 'password'));
+    if (data.errors) {
+      setErrors(data.errors);
+    }
+  }
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -59,6 +67,7 @@ const LoginForm = () => {
             onChange={updatePassword}
           />
           <Button type="submit">Login</Button>
+          <Button onClick={demoLogin}>Demo Login</Button>
         </div>
       </FormControl>
     </Flex>
