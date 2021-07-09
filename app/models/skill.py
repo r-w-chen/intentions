@@ -15,5 +15,6 @@ class Skill(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "name": self.name
+            "name": self.name,
+            "exercises": [exercise.to_dict() for exercise in self.exercises]
         }

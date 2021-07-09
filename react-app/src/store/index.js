@@ -6,13 +6,15 @@ import exercises from "./exercises";
 import errors from "./errors";
 import createSessionExercises from "./create-session";
 import dashboardSessions from "./dashboard-sessions";
+import todoSessions from './todo-sessions';
 const rootReducer = combineReducers({
     session,
     skills,
     exercises,
     errors,
     createSessionExercises,
-    dashboardSessions
+    dashboardSessions,
+    todoSessions
 });
 
 

@@ -11,7 +11,7 @@ from .api.auth_routes import auth_routes
 from .api.skills_routes import skills_routes
 from .api.exercises_routes import exercises_routes
 from .api.sessions_routes import sessions_routes
-
+from .api.todo_routes import todos_routes
 from .seeds import seed_commands
 
 from .config import Config
@@ -37,6 +37,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(skills_routes, url_prefix='/api/skills')
 app.register_blueprint(exercises_routes, url_prefix='/api/exercises')
 app.register_blueprint(sessions_routes, url_prefix='/api/sessions')
+app.register_blueprint(todos_routes, url_prefix='/api/todos')
 
 db.init_app(app)
 Migrate(app, db)

@@ -1,0 +1,38 @@
+/* 
+ECECEC
+9FD3C7
+385170
+142D4C
+*/
+.hiddenExercises{
+    /* background: #9FD3C7; */
+    background: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.5s linear;
+    transform: translateY(-100%);
+    /* transform-origin: top; */
+    /* transform: scaleY(0); */
+    z-index: 1;
+    transition: transform .2s ease-out;
+}
+
+
+.revealedExercise{
+    background: #9FD3C7;
+    /* transform: translateY(0); */
+    max-height: 15em;
+    z-index: 1;
+    transition: transform .2s ease-out;
+}
+
+.collapse{
+    height: 40px;
+    /* overflow: hidden; */
+    transition: transform .2s ease-out;
+}
+.expand{
+    height: auto;
+    overflow: visible;
+    transition: transform .2s ease-out;
+}
