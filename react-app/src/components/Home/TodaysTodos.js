@@ -36,7 +36,7 @@ export default function TodaysTodos() {
             <Text zIndex={2} p={3} bg='#ECECEC'>Today's Sessions</Text>
             <Accordion bg='#9FD3C7' allowToggle  allowMultiple={false}>
                 {todos.map(todo => (
-                    <TodoSession key={todo.id} session={todo.session} date={todo.date_scheduled}/>
+                    <TodoSession key={todo.id} session={todo.session} todo_exercises={todo.todo_exercises} date={todo.date_scheduled}/>
                 ))}
             </Accordion>
         </Stack>

@@ -9,6 +9,7 @@ import DeleteSession from './DeleteSession';
 import styles from '../../css.modules/Dashboard.module.css';
 import { deleteSessionExercise } from '../../store/dashboard-sessions';
 import { addTodo } from '../../store/todo-sessions';
+
 export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
     // Hooks
     const dispatch = useDispatch();
@@ -19,8 +20,6 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
     const [date, setDate] = useState(''); // 2021-07-12 , comes as string
 
     // Handlers
-    const flipCard = () => setIsFlipped(prev => !prev);
-
     const changeCard = () => {
         setSelectedCard(session.id);
     }
@@ -36,7 +35,8 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
         const todo = {
             session_id: session.id,
             user_id: user.id,
-            date: date_scheduled
+            date: date_scheduled,
+            s_exercises: Object.keys(session.exercises)
         }
         dispatch(addTodo(todo));
     }

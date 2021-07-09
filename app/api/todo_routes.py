@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import TodoSession, db
+from app.models import TodoSession, TodoExercise, db
 
 todos_routes = Blueprint('todos', __name__)
 
@@ -42,6 +42,13 @@ def add_todo():
         print("Incorrect data format, should be YYYY-MM-DD")
         return {'error': 'invalid date format'}
     db.session.add(todo)
+    db.session.commit()
+
+    for s_e in data['s_exercises']:
+        todo_exercise = TodoExercise()
+        todo_exercise.todo_session_id = todo.id
+        todo_exercise.session_exercise_id = s_e
+        db.session.add(todo_exercise)
     db.session.commit()
     return todo.to_dict()
 

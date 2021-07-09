@@ -5,8 +5,8 @@ import { Flex, Checkbox, Box, UnorderedList, ListItem,
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import styles from '../../css.modules/Home.module.css';
 
-export default function TodoSession({ session, date }) {
-    const sessionExercises = Object.values(session.exercises);
+export default function TodoSession({ session, date, todo_exercises }) {
+    const todoExercises = Object.values(todo_exercises);
     const convertedToLocal = moment(date).format('h:mm a');
     const [isChecked, setIsChecked] = useState(false);
     // console.log("LOCAL", convertedToLocal)
@@ -27,10 +27,10 @@ export default function TodoSession({ session, date }) {
             </h2>
             <AccordionPanel>
                 <UnorderedList>
-                 {sessionExercises?.map(ex => (
+                 {todoExercises?.map(td_e => (
                      <ListItem>
                          <Checkbox colorScheme='whatsapp' m={2}>
-                            {ex.exercise.name}
+                            {td_e.s_exercise.exercise.name}
                          </Checkbox >
                      </ListItem>
                  ))}

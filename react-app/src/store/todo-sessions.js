@@ -50,7 +50,7 @@ export const addTodo = (todo) => async dispatch => {
         },
         body: JSON.stringify(todo)
     })
-    const data = await res.json();
+    let data = await res.json();
     if(data.error){
         return;
     } else {
@@ -72,7 +72,7 @@ export default function todoSessions(state = {}, action){
             return action.todos;
         case ADD_TODO :
             newState = JSON.parse(JSON.stringify(state));
-            newState[action.todo.id] = action.todo
+            newState['+' + action.todo.id] = action.todo
             return newState;
         default:
             return state;

@@ -23,4 +23,10 @@ class Session(db.Model):
             "skill_id": self.skill_id,
             "exercises": {exercise.id: exercise.to_dict() for exercise in self.session_exercises}
         }
+    def to_dict_no_exercises(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "skill_id": self.skill_id
+        }
 
