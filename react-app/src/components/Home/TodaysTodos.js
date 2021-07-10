@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { Stack, Text, Accordion } from '@chakra-ui/react';

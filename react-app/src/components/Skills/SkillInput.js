@@ -66,6 +66,7 @@ export default function SkillInput() {
                 value={skillName}
                 onChange={e => setSkillName(e.target.value)}
                 onKeyUp={enterSkill}
+                placeholder="Press 'Enter' to save"
                 ref={input}
                 />
             </SlideFade>

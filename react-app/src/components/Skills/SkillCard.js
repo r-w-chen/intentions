@@ -4,6 +4,8 @@ import {Flex, Text, Input, Icon, Menu, MenuButton, MenuItem, MenuList} from '@ch
 import { BsThreeDotsVertical } from "react-icons/bs"
 import DeleteConfirm from './DeleteConfirm';
 import { updateSkill } from '../../store/skills';
+import styles from '../../css.modules/Dashboard.module.css';
+
 export default function SkillCard({skill}) {
     const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
@@ -34,7 +36,8 @@ export default function SkillCard({skill}) {
     return (
         <>
             <Flex borderRadius='md' boxShadow='lg' h={200} m={5} bg='#ECECEC' border='1px solid lightgray'
-            justify='space-between'
+            justify='space-between' alignItems='center'
+            className={styles.skillCard}
             >
                 {editMode ? 
                 <Input m={5} value={editText} bg='white'
@@ -43,7 +46,7 @@ export default function SkillCard({skill}) {
                 onChange={e => setEditText(e.target.value)}
                     /> 
                 : 
-                <Text m={5}>{skill.name}</Text>}
+                <Text m={5} fontSize={24} alignSelf='center' flex={1}>{skill.name}</Text>}
                 
                 <Menu>
                     <MenuButton height={5} m={5}>

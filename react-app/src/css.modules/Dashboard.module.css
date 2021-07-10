@@ -16,7 +16,32 @@ ECECEC
     display: none; 
 }
   
+/* SKILLS */
 
+.skillCard {
+    position: relative;
+    /* z-index: 1; */
+}
+.skillCard::before,
+.skillCard::after{
+    content:'';
+    background:#ECECEC;
+    border: 1px solid lightgray;
+    transition: 200ms;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    box-shadow: inherit;
+    z-index: -1;
+}
+
+.skillCard:hover:before{
+    transform: rotate(10deg);
+}
+.skillCard:hover:after{
+    transform: rotate(5deg);
+}
 
 /* EXERCISES */
 .exerciseList {
