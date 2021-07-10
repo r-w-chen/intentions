@@ -56,3 +56,32 @@ def add_todo():
 def delete_todo(todo_id):
     print("DELETE TODO", todo_id )
     return jsonify("DELETE TODO")
+
+@todos_routes.route('/completed/<int:todo_session_id>', methods=['PATCH'])
+def update_todo_session_status(todo_session_id):
+    print('SESH UPDATE RECEIVED', todo_session_id,request.json)
+    data = request.json
+    todo_session = TodoSession.query.get(data['id'])
+    todo_session.completed = data['completed']
+    todo_session.date_completed = data['date_completed']
+    db.session.add(todo_session)
+    db.session.commit()
+    # If the boolean is True
+        # Check if completed is already True
+            # If it is, don't make any changes (to avoid changing date)
+        # Set completed to True
+        # Set completed_date
+    # If the boolean is False 
+        # Set completed to False
+        # If completed_date to None? 
+    return todo_session.to_dict()
+
+@todos_routes.route('/exercises/<int:todo_exercise_id>', methods=['PATCH'])
+def update_todo_exercise(todo_exercise_id):
+    print("UPDATE TODO EX", todo_exercise_id, request.json)
+    data = request.json
+    todo_exercise = TodoExercise.query.get(todo_exercise_id)
+    todo_exercise.completed = data['is_checked']
+    db.session.add(todo_exercise)
+    db.session.commit()
+    return todo_exercise.to_dict()
