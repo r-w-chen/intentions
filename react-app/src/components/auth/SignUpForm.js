@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Flex, FormControl, FormLabel, Input, Button} from '@chakra-ui/react';
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
 const SignUpForm = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const [username, setUsername] = useState("");
@@ -16,6 +17,7 @@ const SignUpForm = () => {
     e.preventDefault();
     if (password === repeatPassword) {
       dispatch(signUp(username, email, password));
+      history.push('/dashboard/home')
     }
   };
 
