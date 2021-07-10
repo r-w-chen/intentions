@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import { Box, Flex, Input, FormLabel, FormControl, UnorderedList, ListItem, Button, IconButton, Text } from '@chakra-ui/react';
 import { AiOutlineMinus } from "react-icons/ai";
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,6 +10,7 @@ import styles from '../../css.modules/Dashboard.module.css';
 
 export default function CreateSession() {
     // Hooks
+    const history = useHistory();
     const skills = useSelector(state => Object.values(state.skills))
     const exercises = useSelector(state => state.createSessionExercises);
     const user = useSelector(state => state.session.user);
@@ -43,6 +45,7 @@ export default function CreateSession() {
         console.log("CREATE", session);
         dispatch(addSession(session));
         // redirect to sessions after create?
+        history.push('/dashboard/sessions');
 
     }
     // TODO: add validation for when session name is empty

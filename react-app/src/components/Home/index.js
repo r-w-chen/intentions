@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import styles from '../../css.modules/Dashboard.module.css';
 import TodaysTodos from './TodaysTodos';
-
+import CompletedSessions from './CompletedSessions';
 export default function Home() {
     const date = Date().split(' ').slice(1, 4).join(' ');
     // console.log(date);
@@ -17,7 +17,7 @@ export default function Home() {
             </Flex>
             <Flex h='45%' p={3} m={5} boxShadow='lg' borderRadius='lg' bg='#ECECEC'>
                 <TodaysTodos />
-                <Box w='50%'>Completed Sessions Placeholder</Box>
+                <CompletedSessions />
             </Flex>
         </Box>
     )

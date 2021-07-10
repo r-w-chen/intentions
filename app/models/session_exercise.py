@@ -12,7 +12,7 @@ class Session_exercise(db.Model):
 
     exercise = db.relationship("Exercise", back_populates="session_exercises")
     session = db.relationship("Session", back_populates="session_exercises")
-    todo_exercises = db.relationship("TodoExercise", back_populates="session_exercise")
+    todo_exercises = db.relationship("TodoExercise", back_populates="session_exercise", cascade="all, delete-orphan")
     
     def to_dict(self):
         return {

@@ -13,6 +13,7 @@ class TodoExercise(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "todo_session_id": self.todo_session_id,
             "s_exercise": self.session_exercise.to_dict(),
             "completed": self.completed
         }
