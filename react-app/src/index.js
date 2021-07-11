@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import './index.css';
 import App from './App';
 import configureStore from './store';
-import { ChakraProvider } from "@chakra-ui/react"
+import { ChakraProvider , extendTheme} from "@chakra-ui/react"
 const store = configureStore();
 // const Menu = {
 //   baseStyle: {
@@ -17,16 +17,22 @@ const store = configureStore();
 //   }
 // }
 
-// const theme = extendTheme({
-//   components: {
-//     Menu
-//   }
-// })
+const theme = extendTheme({
+  components: {
+    Input: {
+      baseStyle: {
+        field: {
+          borderColor: '#142D4C'
+        }
+      },
+    }
+  }
+})
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ChakraProvider >
+      <ChakraProvider theme={theme}>
         <App />
       </ChakraProvider>
     </Provider>

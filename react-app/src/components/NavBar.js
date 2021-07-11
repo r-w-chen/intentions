@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link, Flex, Box } from "@chakra-ui/react"
+import { Link, Flex, Box, Image } from "@chakra-ui/react"
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import LogoutButton from './auth/LogoutButton';
 import styles from '../css.modules/Navbar.module.css'
+import logo from '../images/Intentions-logo.png';
 const navLinkHover = {
   borderBottom: '3px solid #385170'
 }
@@ -14,8 +15,8 @@ const NavBar = () => {
   return (
     <nav className={styles.nav}>
       <Flex h={50} justify="space-between" alignItems='center' >
-          <Link as={NavLink} to="/" exact={true} activeClassName="active" m={5}>
-            Intentions
+          <Link as={NavLink} to="/" exact={true} activeClassName="active-logo" m={5}>
+            <Image h={30} src={logo} alt='logo.png'/>
           </Link>
         {user ?
           <LogoutButton />

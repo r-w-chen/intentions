@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, FormControl, FormLabel, Input, Button} from '@chakra-ui/react';
+import { Flex, FormControl, FormLabel, Input, Button, Text} from '@chakra-ui/react';
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from 'react-router-dom';
 import { signUp } from '../../store/session';
@@ -44,44 +44,52 @@ const SignUpForm = () => {
   return (
     <Flex justify='center' align='center' w='100%' h='100%' p={5}>
     <FormControl as='form' onSubmit={onSignUp} bg='#ECECEC' w='50%' p={5} borderRadius='md' boxShadow='lg'>
+      <Text textAlign='center' fontSize={24} pb={3} borderBottom='2px solid #385170'>Sign Up</Text>
       <div>
-        <FormLabel>User Name</FormLabel>
+        <FormLabel mt='20px' htmlFor='username'>User Name</FormLabel>
         <Input
           type="text"
-          name="username"
+          id="username"
           onChange={updateUsername}
           value={username}
         ></Input>
       </div>
       <div>
-        <FormLabel>Email</FormLabel>
+        <FormLabel htmlFor='signup-email'>Email</FormLabel>
         <Input
           type="text"
-          name="email"
+          id="signup-email"
           onChange={updateEmail}
           value={email}
         ></Input>
       </div>
       <div>
-        <FormLabel>Password</FormLabel>
+        <FormLabel htmlFor='signup-pw'>Password</FormLabel>
         <Input
           type="password"
-          name="password"
+          id="signup-pw"
           onChange={updatePassword}
           value={password}
         ></Input>
       </div>
       <div>
-        <FormLabel>Repeat Password</FormLabel>
+        <FormLabel htmlFor='confirm-pw'>Repeat Password</FormLabel>
         <Input
           type="password"
-          name="repeat_password"
+          id="confirm-pw"
           onChange={updateRepeatPassword}
           value={repeatPassword}
           required={true}
         ></Input>
       </div>
-      <Button type="submit">Sign Up</Button>
+      <Flex justify='flex-end'>
+        <Button type="submit" bg='#385170' color='#ECECEC' borderRadius='full' m={2}
+          _hover={{ bg: '#142D4C'}}
+          _active={{ bg: '#385170'}}
+        >
+          Sign Up
+        </Button>
+      </Flex>
     </FormControl>
     </Flex>
   );
