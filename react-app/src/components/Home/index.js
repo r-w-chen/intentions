@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Box, Flex } from '@chakra-ui/react';
 import styles from '../../css.modules/Dashboard.module.css';
 import TodaysTodos from './TodaysTodos';
 import CompletedSessions from './CompletedSessions';
-export default function Home() {
+import { getTodos } from '../../store/todo-sessions';
+export default function Home({ user }) {
+    const dispatch = useDispatch();
     const date = Date().split(' ').slice(1, 4).join(' ');
     // console.log(date);
+
+    useEffect(() => {
+        dispatch(getTodos(user.id));
+    }, [dispatch, user.id])
     return (
         <Box boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>
             <Flex h='45%' p={3} m={5} boxShadow='lg' borderRadius='lg' bg='#ECECEC'>

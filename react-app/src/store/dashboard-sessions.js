@@ -77,6 +77,23 @@ export const getSessions = userId => async dispatch => {
     }
 }
 
+export const updateSession = (sessionId, name) => async dispatch => {
+    const res = await fetch(`/api/sessions/${sessionId}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(name)
+    })
+    const data = await res.json();
+    if(data.errors){
+        // TODO: update errors store
+    } else {
+        dispatch(setUpdateSession(data));
+        console.log("UPDATED SESH", data)
+    }
+}
+
 export const deleteSessions = sessionId => async dispatch => {
     const res = await fetch(`/api/sessions/${sessionId}`, {
         method: 'DELETE',
@@ -108,6 +125,7 @@ export const addSessionExercise = (sessionId, exerciseId) => async dispatch => {
     dispatch(setAddSessionExercise(data))
 }
 
+
 // REDUCER
 
 export default function dashboardSessions(state = {}, action) {
@@ -121,6 +139,10 @@ export default function dashboardSessions(state = {}, action) {
             newState = JSON.parse(JSON.stringify(state));
             const sessionToAddTo = newState[action.sessionExercise.session_id]
             sessionToAddTo.exercises[action.sessionExercise.id] = action.sessionExercise
+            return newState;
+        case UPDATE_SESSION:
+            newState = JSON.parse(JSON.stringify(state));
+            newState[action.session.id] = action.session;
             return newState;
         case DELETE_SESSION:
             newState = {...state};

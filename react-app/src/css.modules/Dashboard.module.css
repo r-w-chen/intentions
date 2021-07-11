@@ -20,7 +20,6 @@ ECECEC
 
 .skillCard {
     position: relative;
-    /* z-index: 1; */
 }
 .skillCard::before,
 .skillCard::after{
@@ -73,11 +72,16 @@ ECECEC
 }
 .back{
     transform: rotateY(180deg);
-    /* backface-visibility: hidden; */
+    transition: 500ms;
     
 }
 .front {
     /* backface-visibility: hidden; */
+    transition: 500ms;
+}
+.front:hover{
+    transform: translateY(-10px);
+    z-index: 2;
 }
 
 .frontSide{

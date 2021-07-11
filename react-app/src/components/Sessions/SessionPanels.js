@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { TiArrowBackOutline } from 'react-icons/ti';
 import { AiOutlinePlus } from "react-icons/ai";
-import { TabPanels, TabPanel, Box, SimpleGrid, Stack, Text, Flex, Icon } from '@chakra-ui/react';
+import { Box, SimpleGrid, Stack, Text, Flex, Icon, Tooltip } from '@chakra-ui/react';
 import SessionCard from './SessionCard';
 import { addSessionExercise } from '../../store/dashboard-sessions';
-export default function SessionPanels({ skills }) {
+export default function SessionPanels({ skill }) {
     const dispatch = useDispatch();
     const sessions = useSelector(state => state.dashboardSessions);
     const sessionsList = Object.values(sessions);
@@ -25,10 +26,9 @@ export default function SessionPanels({ skills }) {
         }
     }
     return (
-        <TabPanels h='100%' w='100%'>
-            {skills.map(skill => (
-                <TabPanel h='100%' w='100%' display='flex'>
-                    <SimpleGrid columns={[1, null, 2, 3]} spacing={10} w='70%' mr={5}>
+        <Box h='100%' w='100%'>
+                <Box h='100%' w='100%' display='flex'>
+                    <SimpleGrid columns={[1, null, 2, 3]} spacing={8} w='70%' m={5}>
                     {sessionsList.length ? sessionsList.filter(session => skill.id === session.skill_id)?.map(session => (
                         <SessionCard session={session} setSelectedCard={setSelectedCard} selectedCard={selectedCard}/>
                     )) : null}
@@ -36,19 +36,26 @@ export default function SessionPanels({ skills }) {
                     <Box h='90%' w='30%' bg='#8bbbb0' borderRadius='lg' boxShadow='lg'>
                         {revealExercise && 
                         <Stack m={3}>
+                            <Flex>
+                                <Icon as={TiArrowBackOutline} boxSize={5} alignSelf='center'/> 
+                                <Text m={1}>Flip a card over to add exercises</Text>
+                            </Flex>
                             {skill.exercises.map(ex => (
                                 <Flex bg='#ECECEC' boxShadow='md' borderRadius='lg' p={2} justify='space-between'>
                                     <Text>{ex.name}</Text>
-                                    <Icon as={AiOutlinePlus} boxSize={4} m={1}
-                                     _hover={{ color: '#9FD3C7'}}
-                                     onClick={() => addExerciseToCurrentCard(ex.id)}
-                                    ></Icon>
+                                    <Tooltip label={`Add to current session`} placement='top' hasArrow>
+                                        <span>
+                                            <Icon as={AiOutlinePlus} boxSize={4} m={1}
+                                            _hover={{ color: '#9FD3C7'}}
+                                            onClick={() => addExerciseToCurrentCard(ex.id)}
+                                            ></Icon>
+                                        </span>
+                                    </Tooltip>
                                 </Flex>
                             ))}    
                         </Stack>}
                     </Box>
-                </TabPanel>
-            ))}
-        </TabPanels>
+                </Box>
+        </Box>
     )
 }

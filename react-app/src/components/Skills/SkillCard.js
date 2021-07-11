@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {Flex, Text, Input, Icon, Menu, MenuButton, MenuItem, MenuList} from '@chakra-ui/react';
 import { BsThreeDotsVertical } from "react-icons/bs"
 import DeleteConfirm from './DeleteConfirm';
@@ -45,9 +46,11 @@ export default function SkillCard({skill}) {
                 onKeyUp={saveEditsOnEnter}
                 onChange={e => setEditText(e.target.value)}
                     /> 
-                : 
-                <Text m={5} fontSize={24} alignSelf='center' flex={1}>{skill.name}</Text>}
-                
+                :
+                <Link to={`/dashboard/sessions/${skill.id}`} >
+                    <Text m={5} fontSize={24} alignSelf='center' flex={1} transition='200ms' _hover={{color: '#9FD3C7'}}>{skill.name}</Text>
+                </Link>
+                }
                 <Menu>
                     <MenuButton height={5} m={5}>
                         <Icon as={BsThreeDotsVertical} boxSize={5}/>

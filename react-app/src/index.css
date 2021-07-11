@@ -103,3 +103,11 @@ li{
 .active-navbar{
   border-bottom: 3px solid #385170;
 }
+
+.skill-tab-active{
+  color: #4d6f99;
+  font-weight: bold;
+  padding: 3px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #385170;
+}

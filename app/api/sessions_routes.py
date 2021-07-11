@@ -30,11 +30,11 @@ def add_sessions():
         added_session = Session.query.order_by(Session.id.desc()).first()
         # print("QUERIED SESSION", added_session.id)
         # Iterate through each exercise in list and create a session_exercise that ties to the recently created session
-        for exercise in data['exercises']:
-            session_exercise = Session_exercise()
-            session_exercise.exercise_id = exercise['id']
-            session_exercise.session_id = added_session.id
-            db.session.add(session_exercise)
+        # for exercise in data['exercises']:
+        #     session_exercise = Session_exercise()
+        #     session_exercise.exercise_id = exercise['id']
+        #     session_exercise.session_id = added_session.id
+        #     db.session.add(session_exercise)
         db.session.commit()
         return added_session.to_dict()
     else:
@@ -51,11 +51,15 @@ def add_session_exercise(session_id):
     db.session.commit()
     return session_exercise.to_dict()
 
-@sessions_routes.route('/<int:session_id>', methods=['PUT'])
+@sessions_routes.route('/<int:session_id>', methods=['PATCH'])
 # @login_required
 def edit_sessions(session_id):
-    print("PUT RECEIVED", session_id)
-    return jsonify("RECEIVED PUT")
+    print("PUT RECEIVED", session_id, request.json)
+    session = Session.query.get(session_id)
+    session.name = request.json
+    db.session.add((session))
+    db.session.commit()
+    return session.to_dict()
 
 
 @sessions_routes.route('/<int:session_id>', methods=['DELETE'])

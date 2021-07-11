@@ -10,7 +10,7 @@ class TodoSession(db.Model):
     date_completed = db.Column(db.DateTime)
     completed = db.Column(db.Boolean, default = False)
 
-    session = db.relationship("Session", backref="todo_sessions")
+    session = db.relationship("Session", back_populates="todo_sessions")
     todo_exercises = db.relationship("TodoExercise", backref='todo_session', cascade="all, delete-orphan")
 
     def to_dict(self):

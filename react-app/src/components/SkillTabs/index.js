@@ -1,7 +1,8 @@
 import React from 'react'
-import { TabList, Tab } from '@chakra-ui/react';
+import { NavLink } from 'react-router-dom';
+import { TabList, Tab, Flex, Box } from '@chakra-ui/react';
 
-export default function SkillTabs({ skills, setSelectedTab }) {
+export default function SessionSkillTabs({ skills, setSelectedTab }) {
 
     return (
         <TabList overflowX='scroll' overflowY='hidden' className='skill-tabs'>
