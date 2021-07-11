@@ -61,7 +61,7 @@ function Dashboard() {
                     <Exercises />
                 </Route>
                 <Route path="/dashboard/scheduled">
-                    <Scheduled/>
+                    <Scheduled user={user}/>
                 </Route>
                 <Route>
                     <h1>Page cannot be found</h1>

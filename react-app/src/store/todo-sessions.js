@@ -74,8 +74,13 @@ export const addTodo = (todo) => async dispatch => {
 
 }
 
-export const deleteTodo = (todo) => async dispatch => {
-
+export const deleteTodo = (todoId) => async dispatch => {
+    const res = await fetch(`/api/todos/${todoId}`, {
+        method: 'DELETE'
+    });
+    const data = await res.json();
+    // console.log("DELETED ID", data)
+    dispatch(removeTodo(data));
 }
 
 export const updateTodoExercise = (id, bool) => async dispatch => {
@@ -102,7 +107,7 @@ export const updateTodoSessionComplete = (todo) => async (dispatch) => {
         body: JSON.stringify(todo)
     })
     const data = await res.json();
-    console.log("UPDATED SESSION", data)
+    // console.log("UPDATED SESSION", data)
     dispatch(setTodoSessionStatus(data))
 }
 // REDUCER
@@ -125,6 +130,10 @@ export default function todoSessions(state = {}, action){
         case UPDATE_TODO_SESSION_STATUS:
             newState = JSON.parse(JSON.stringify(state));
             newState['+' + action.todo.id] = action.todo;
+            return newState;
+        case REMOVE_TODO :
+            newState = JSON.parse(JSON.stringify(state));
+            delete newState['+' + action.todoId];
             return newState;
         default:
             return state;

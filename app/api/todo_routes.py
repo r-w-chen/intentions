@@ -55,7 +55,10 @@ def add_todo():
 @todos_routes.route('/<int:todo_id>', methods=['DELETE'])
 def delete_todo(todo_id):
     print("DELETE TODO", todo_id )
-    return jsonify("DELETE TODO")
+    todo = TodoSession.query.get(todo_id)
+    db.session.delete(todo)
+    db.session.commit()
+    return jsonify(todo_id)
 
 @todos_routes.route('/completed/<int:todo_session_id>', methods=['PATCH'])
 def update_todo_session_status(todo_session_id):
