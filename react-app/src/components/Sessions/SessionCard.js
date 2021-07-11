@@ -1,28 +1,42 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Flex, Text, UnorderedList, ListItem, Icon, Input, Button } from '@chakra-ui/react';
+import { Tooltip, Box, Flex, Text, UnorderedList, ListItem, Icon, Input, Button, IconButton } from '@chakra-ui/react';
 import { TiArrowBackOutline, TiEdit } from 'react-icons/ti';
 import { AiOutlineMinus } from 'react-icons/ai';
 import { FaRegCalendarCheck } from 'react-icons/fa';
 import DeleteSession from './DeleteSession';
 import styles from '../../css.modules/Dashboard.module.css';
-import { deleteSessionExercise } from '../../store/dashboard-sessions';
+import { deleteSessionExercise, updateSession } from '../../store/dashboard-sessions';
 import { addTodo } from '../../store/todo-sessions';
 
 export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
     // Hooks
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
+    const input = useRef();
     // State variables
-    const [isFlipped, setIsFlipped] = useState(false);
     const [revealDate, setRevealDate] = useState(false);
     const [date, setDate] = useState(''); // 2021-07-12 , comes as string
+    const [editName, setEditName] = useState(session.name);
+    const [editSessionMode, setEditSessionMode] = useState(false);
+    const [sessionIsScheduled, setSessionIsScheduled] = useState(false);
+
+    useEffect(() => {
+        if(editSessionMode){
+            input.current.focus(); 
+        }
+    }, [editSessionMode])
 
     // Handlers
-    const changeCard = () => {
-        setSelectedCard(session.id);
+    const changeCard = (sessionId) => {
+        if(selectedCard === sessionId){ //If the same card is selected, flip it back over
+            setSelectedCard(null);
+        } else {
+            setSelectedCard(session.id);
+        }
     }
+
     const handleDeleteExercise = (sessionExerciseId) => {
         dispatch(deleteSessionExercise(sessionExerciseId, session.id))
     }
@@ -39,22 +53,68 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
             s_exercises: Object.keys(session.exercises)
         }
         dispatch(addTodo(todo));
+        setRevealDate(false);
+        setSessionIsScheduled(true);
+        setTimeout(() => setSessionIsScheduled(false), 5000);
     }
+
+    const handleSessionEditOnEnter = (e) => {
+        if (e.key === "Enter"){
+            console.log("new name", editName)
+            dispatch(updateSession(session.id, editName))
+            setEditSessionMode(false);
+        }
+    }
+
+    const handleSessionEditOnBlur = () => {
+        // dispatch
+        dispatch(updateSession(session.id, editName))
+        setEditSessionMode(false)
+    }
+
     return (
-        <Box w='100%' h={250} borderRadius='md' boxShadow='lg' bg='#ECECEC' border='1px solid lightgray' transition='300ms'
+        <Tooltip label={`Scheduled for ${moment(date).format('dddd, MMMM Do YYYY, h:mm a')}`} isOpen={sessionIsScheduled}>
+        <Box w='100%' h={275} borderRadius='md' boxShadow='lg' bg='#ECECEC' border='1px solid lightgray' transition='300ms'
          position='relative' className={selectedCard === session.id ? styles.back: styles.front}
         >   
             <Flex flexDir='column' className={selectedCard === session.id ? styles.frontSideFlipped : styles.frontSide} >
-                <Flex justify='space-between' w='100%' m={5}>
+                <Flex justify='space-between'  m={5}>
+                    {editSessionMode ? 
+                    <Input w='80%' value={editName} ref={input}
+                     onChange={e => setEditName(e.target.value)}
+                     onKeyUp={handleSessionEditOnEnter}
+                     onBlur={handleSessionEditOnBlur}
+                    />
+                    :
                     <Text>{session.name}</Text>
+                    }
                     <Flex className={styles.sessionIconMenu}>
-                        <Icon as={TiArrowBackOutline} boxSize={6} m={1} className={styles.sessionIcons}
-                        onClick={changeCard}
-                        />
-                        <DeleteSession session={session}/>
-                        <Icon as={FaRegCalendarCheck} boxSize={5} m={1} className={styles.sessionIcons}  
-                        onClick={() => setRevealDate(prev => !prev)}
-                        />
+                            <Tooltip label='View exercises' placement='right' hasArrow>
+                                <span>
+                                    <Icon as={TiArrowBackOutline} boxSize={6} m={1} className={styles.sessionIcons}
+                                    onClick={changeCard}
+                                    />
+                                </span>
+                            </Tooltip>
+                        <Tooltip label='Schedule session' placement='right' hasArrow>
+                            <span>
+                                <Icon as={FaRegCalendarCheck} boxSize={5} m={1} className={styles.sessionIcons}  
+                                onClick={() => setRevealDate(prev => !prev)}
+                                />
+                            </span>
+                        </Tooltip>
+                        <Tooltip label='Edit session name' placement='right' hasArrow>
+                            <span>
+                                <Icon as={TiEdit} boxSize={6} m={1} className={styles.sessionIcons}
+                                 onClick={() => setEditSessionMode(prev => !prev)}
+                                />
+                            </span>
+                        </Tooltip>
+                        <Tooltip label='Delete session' placement='right' hasArrow>
+                            <span>
+                                <DeleteSession session={session}/>
+                            </span>
+                        </Tooltip>
                     </Flex>
                 </Flex>
                 {revealDate &&
@@ -69,23 +129,26 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
                         <Text>Exercises</Text>
                         <Flex className={styles.sessionIconMenu}>
                             <Icon as={TiArrowBackOutline} boxSize={6} m={1} className={styles.sessionIcons}
-                            onClick={changeCard}
-                            />
-                            <Icon as={TiEdit} boxSize={6} m={1} className={styles.sessionIcons}
+                            onClick={() => changeCard(session.id)}
                             />
                         </Flex>
                 </Flex>
             <UnorderedList className={styles.sessionExercises} p={5} >
                 {Object.values(session.exercises)?.map(( exercise ) => (
                     <ListItem display='flex' justifyContent='space-between'>{exercise.exercise.name}
-                        <Icon as={AiOutlineMinus} boxSize={4} m={1}
-                        _hover={{ color: '#9FD3C7'}}
-                        onClick={() => handleDeleteExercise(exercise.id)}
-                        ></Icon>
+                        <Tooltip label='Remove exercise' placement='right-start' hasArrow>
+                            <span>
+                                <IconButton icon={<AiOutlineMinus/>} boxSize={4} m={1} borderRadius='md' 
+                                _hover={{ color: '#9FD3C7', bg:'#8517060'}}
+                                onClick={() => handleDeleteExercise(exercise.id)}
+                                ></IconButton>
+                            </span>
+                        </Tooltip>
                     </ListItem>
                 ))}
             </UnorderedList>
             </Flex>
         </Box>
+        </Tooltip>
     )
 }

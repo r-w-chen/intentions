@@ -1,36 +1,85 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { Tabs } from '@chakra-ui/react';
-import SkillTabs from '../SkillTabs';
+import { useParams } from 'react-router-dom';
+import { Box, Text, Button, useDisclosure, Flex, SlideFade, Input } from '@chakra-ui/react';
+import SessionSkillTabs from '../SkillTabs/SessionSkillTabs';
 import SessionPanels from './SessionPanels';
-import { getSessions } from '../../store/dashboard-sessions';
+import { getSessions, addSession } from '../../store/dashboard-sessions';
 import styles from '../../css.modules/Dashboard.module.css';
-export default function Sessions() {    
+export default function Sessions({ skills }) {    
     // Hooks
+    const { skillId } = useParams();
     const user = useSelector(state => state.session.user);
-    const skills = useSelector(state => Object.values(state.skills));
     const dispatch = useDispatch();
-    // console.log("SKILLS", skills)
-    // State Variables  
-    const [selectedTab, setSelectedTab] = useState('');
-    console.log('CURRENT TAB', selectedTab);
-    
-    useEffect(() => {
-        if(user){
-            dispatch(getSessions(user.id))
-        }
-    }, [dispatch])
+    const { isOpen, onToggle } = useDisclosure();
+    const input = useRef(null); // Create ref for input so it can be focused upon button press
+
+    const [sessionName, setSessionName] = useState('');
+    const [showInput, setShowInput] = useState(false);
+    const [invalidInput, setInvalidInput] = useState(false);
+
 
     useEffect(() => {
-        if(skills.length){
-            setSelectedTab(skills[0].id)
+        if(showInput){
+            input.current.focus();
+        } else {
+            input.current.blur();
         }
-    }, [skills])
+    }, [showInput])
+
+    const enterSession = e => {
+        if (e.key === "Enter"){
+            const newSession = {
+                name: sessionName.trim(),
+                skill_id: +skillId,
+                user_id: user.id
+            }
+            dispatch(addSession(newSession));
+            setSessionName('');
+            e.target.blur();
+            
+        }
+    }
+
+    const toggleInput = (e) =>{
+        onToggle();
+        e.target.blur();
+        // dispatch(clearErrors());
+        setShowInput(prev => !prev);
+        if(showInput){
+            input.current.focus();
+        } else {
+            input.current.blur();
+        }
+        setSessionName(''); // Clear input after every toggle
+    }
+
+    useEffect(() => {
+        dispatch(getSessions(user.id))
+    }, [dispatch, user])
 
     return (
-        <Tabs boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>
-            <SkillTabs skills={skills} setSelectedTab={setSelectedTab}/>
-            <SessionPanels skills={skills}/>
-        </Tabs>
+        <Box boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>
+            <SessionSkillTabs skills={Object.values(skills)} />
+            <Flex m={1}>
+                <Button m={2}onClick={toggleInput}>Add Session</Button>
+                <SlideFade in={isOpen}>
+                    <Input m={2}w={'300px'} bg='gray.100' errorBorderColor='crimson' isInvalid={invalidInput}
+                    value={sessionName}
+                    onChange={e => setSessionName(e.target.value)}
+                    onKeyUp={enterSession}
+                    placeholder="Press 'Enter' to save"
+                    ref={input}
+                />
+                </SlideFade>
+            </Flex>
+            {skills[skillId] ? 
+            <SessionPanels skill={skills[skillId]}/>
+            :
+            <Box m={10}>
+                <Text fontSize={32}>Skill Not Found</Text>
+            </Box>
+            }
+        </Box>
     )
 }

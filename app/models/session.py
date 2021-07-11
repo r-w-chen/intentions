@@ -14,7 +14,7 @@ class Session(db.Model):
     # One session will have many session_exercises
     session_exercises = db.relationship("Session_exercise", back_populates="session", cascade="all, delete-orphan")
     # One session can be associated with many todo_sessions
-    # todo_sessions = db.relationship("TodoSession", back_populates="session")
+    todo_sessions = db.relationship("TodoSession", back_populates="session", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
