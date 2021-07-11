@@ -88,3 +88,13 @@ def update_todo_exercise(todo_exercise_id):
     db.session.add(todo_exercise)
     db.session.commit()
     return todo_exercise.to_dict()
+
+@todos_routes.route('/<int:todo_session_id>', methods=['PATCH'])
+def update_todo_session_date_scheduled(todo_session_id):
+    print("UPDATE TODO SCHEDUL", todo_session_id, request.json)
+    data = request.json
+    todo_session = TodoSession.query.get(todo_session_id)
+    todo_session.date_scheduled = data['date_scheduled']
+    db.session.add(todo_session)
+    db.session.commit()
+    return todo_session.to_dict()

@@ -27,6 +27,10 @@ export default function Sessions({ skills }) {
         }
     }, [showInput])
 
+    useEffect(() => {
+        dispatch(getSessions(user.id))
+    }, [dispatch, user])
+
     const enterSession = e => {
         if (e.key === "Enter"){
             const newSession = {
@@ -54,9 +58,6 @@ export default function Sessions({ skills }) {
         setSessionName(''); // Clear input after every toggle
     }
 
-    useEffect(() => {
-        dispatch(getSessions(user.id))
-    }, [dispatch, user])
 
     return (
         <Box boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>
