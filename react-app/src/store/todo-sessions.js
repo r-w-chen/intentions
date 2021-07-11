@@ -110,6 +110,19 @@ export const updateTodoSessionComplete = (todo) => async (dispatch) => {
     // console.log("UPDATED SESSION", data)
     dispatch(setTodoSessionStatus(data))
 }
+
+export const updateTodoSessionReschedule = (todo) => async dispatch => {
+    const res = await fetch(`/api/todos/${todo.id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(todo)
+    })
+    const data = await res.json();
+    
+    dispatch(setTodoSessionStatus(data));
+}
 // REDUCER
 
 export default function todoSessions(state = {}, action){
