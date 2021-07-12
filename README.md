@@ -1,98 +1,64 @@
-# Flask React Project
+# Intentions
 
-This is the backend for the Flask React project.
+Intentions is a productivity app built to help users keep track of their skills and hobbies while implementing actionable exercises that they can organize into scheduled To-Do lists.
 
-## Getting started
+## Live Site
 
-1. Clone this repository (only this branch)
+Visit the live site here: https://intentions-app.herokuapp.com/
 
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
 
-2. Install dependencies
+## Technologies Used
+* Frontend: 
+   * React
+   * Redux
+   * Chakra UI
+   * react-calendar
+   * react-quill
+   * react-icons
+* Backend:
+   * Flask
+   * SQLAlchemy
+   * PostgreSQL
+   * Alembic
+   * WTForms
+* Deployment:
+   * Heroku
+   * Docker
 
-      ```bash
-      pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
-      ```
+## Documentation
+[Database Schema](https://github.com/r-w-chen/intentions/wiki/Database-Schema)
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
+[Feature List](https://github.com/r-w-chen/intentions/wiki/Feature-List)
 
-5. Get into your pipenv, migrate your database, seed your database, and run your flask app
+[Wireframes](https://github.com/r-w-chen/intentions/wiki/Frontend-Routes-(w--Wireframes))
 
-   ```bash
-   pipenv shell
-   ```
+## Features
 
-   ```bash
-   flask db upgrade
-   ```
+### Dashboard
+Registered Users gain access to a dashboard where they can begin tracking Skills they wish to improve.
+#### Skills
+- Under the Skills page, a user can create a new Skill that they want to track
+- After a Skill has been made, a new Skill deck will appear
+- When the user clicks on the Skill name, they will be redirected to that Skill's sessions
+- A user can also edit an existing Skill's name or delete the Skill
+#### Exercises
+- Under the Exercises page, a user can create a new Exercise corresponding to an existing Skill
+- The user can add notes on an exercise using a rich text editor
+- All Exercises created by the user are viewable by Skill
+- Clicking on an Exercise will render the Exercise's notes
+- The Exercise can be edited or deleted
+#### Sessions
+- Users can create Session cards that consist of a list of Exercises
+- Exercises can be mixed and matched with multiple Session cards
+#### Scheduled To-Do Sessions
+- A Session can be scheduled once Exercises have been added to it
+- Any Sessions that have been scheduled are viewable under the Scheduled Sessions page
+- Sessions that have been scheduled for Today will be viewable on the Home page
+- Sessions scheduled for Today will render as a To-Do list, where the user can check off each Exercise they have completed
+   - Once the user has completed all Exercises listed under a Session, the Session will be checked as completed and appear under the Completed Sessions box
+## Future Features
+- Integrating a consistency chart that shows how many days the user has consistently completed their To-Do's for the day
+- Creating a calendar component that interfaces with the user's scheduled To-Do sessions
+- Adding Tags for Exercises 
 
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
-
-6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
-
-***
-*IMPORTANT!*
-   If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
-   You can do this by running:
-
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
-
-*ALSO IMPORTANT!*
-   psycopg2-binary MUST remain a dev dependency because you can't install it on apline-linux.
-   There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
-***
-
-## Deploy to Heroku
-
-1. Create a new project on Heroku
-2. Under Resources click "Find more add-ons" and add the add on called "Heroku Postgres"
-3. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)
-4. Run
-
-   ```bash
-   heroku login
-   ```
-
-5. Login to the heroku container registry
-
-   ```bash
-   heroku container:login
-   ```
-
-6. Update the `REACT_APP_BASE_URL` variable in the Dockerfile.
-   This should be the full URL of your Heroku app: i.e. "https://flask-react-aa.herokuapp.com"
-7. Push your docker container to heroku from the root directory of your project.
-   This will build the dockerfile and push the image to your heroku container registry
-
-   ```bash
-   heroku container:push web -a {NAME_OF_HEROKU_APP}
-   ```
-
-8. Release your docker container to heroku
-
-   ```bash
-   heroku container:release web -a {NAME_OF_HEROKU_APP}
-   ```
-
-9. set up your database:
-
-   ```bash
-   heroku run -a {NAME_OF_HEROKU_APP} flask db upgrade
-   heroku run -a {NAME_OF_HEROKU_APP} flask seed all
-   ```
-
-10. Under Settings find "Config Vars" and add any additional/secret .env variables.
-
-11. profit
+## Conclusion and Next Steps
