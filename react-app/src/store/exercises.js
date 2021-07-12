@@ -1,5 +1,5 @@
 import { setExercisesErrors, clearErrors } from "./errors";
-
+import { addExerciseToSkill } from "./skills";
 // ACTIONS
 const SET_EXERCISES = 'exercises/SET_EXERCISES';
 const ADD_EXERCISE = 'exercises/ADD_EXERCISE';
@@ -53,6 +53,7 @@ export const addExercise = exercise => async dispatch => {
 		dispatch(setExercisesErrors(data.errors))
 	} else {
 		dispatch(setAddExercise(data))
+		dispatch(addExerciseToSkill(data))
 		dispatch(clearErrors())
 	}
 }

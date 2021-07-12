@@ -1,7 +1,7 @@
 import React, { useState, useEffect }from 'react'
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
-import { Flex, Checkbox, Box, UnorderedList, ListItem, 
+import { Flex, Checkbox, Text, UnorderedList, ListItem, 
          AccordionItem, AccordionButton, AccordionPanel, AccordionIcon} from '@chakra-ui/react';
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import SingleTodo from './SingleTodo';
@@ -9,7 +9,11 @@ import styles from '../../css.modules/Home.module.css';
 import { updateTodoSessionComplete } from '../../store/todo-sessions';
 
 const checkFullCompletion = (todos) => {
-    return todos.every(todo => todo.completed);
+    if(todos.length){
+        return todos.every(todo => todo.completed);
+    } else {
+        return false;
+    }
 }
 
 export default function TodoSession({ session, date, todo_exercises, todo_id }) {
@@ -50,11 +54,11 @@ export default function TodoSession({ session, date, todo_exercises, todo_id }) 
         <AccordionItem >
             <h2>
                 <AccordionButton p={0} _expanded={{ bg: "#8bbbb0" }}>
-                    <Box flex="1" textAlign="left">
+                    <Flex flex="1" textAlign="left">
                         <Checkbox colorScheme='whatsapp' m={2} isChecked={isChecked}>
-                        {session.name}   {convertedToLocal}
                         </Checkbox >
-                    </Box>
+                        <Text p={2}>  {session.name}   {convertedToLocal}</Text>
+                    </Flex>
                     <AccordionIcon />
                 </AccordionButton>
             </h2>

@@ -21,12 +21,19 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
     const [editName, setEditName] = useState(session.name);
     const [editSessionMode, setEditSessionMode] = useState(false);
     const [sessionIsScheduled, setSessionIsScheduled] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
 
     useEffect(() => {
         if(editSessionMode){
             input.current.focus(); 
         }
     }, [editSessionMode])
+
+    useEffect(() => {
+        if(selectedCard){
+            setErrorMsg('');
+        }
+    }, [selectedCard])
 
     // Handlers
     const changeCard = (sessionId) => {
@@ -36,16 +43,23 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
             setSelectedCard(session.id);
         }
     }
-
+    const revealScheduler = () => {
+        if(Object.values(session.exercises).length){
+            setRevealDate(prev => !prev)
+            setErrorMsg('');
+        } else {
+            setErrorMsg('Please add exercises to this session before scheduling')
+        }
+    }
     const handleDeleteExercise = (sessionExerciseId) => {
         dispatch(deleteSessionExercise(sessionExerciseId, session.id))
     }
 
     const handleScheduleSession = () => {
         const date_scheduled = moment(date).utc().format();
-        const convertedToLocal = moment(date_scheduled).format();
+        // const convertedToLocal = moment(date_scheduled).format();
         // console.log('now', moment())
-        console.log('input', date, '\nUTC', date_scheduled, '\nconertedback', convertedToLocal);
+        // console.log('input', date, '\nUTC', date_scheduled, '\nconertedback', convertedToLocal);
         const todo = {
             session_id: session.id,
             user_id: user.id,
@@ -99,7 +113,7 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
                         <Tooltip label='Schedule session' placement='right' hasArrow>
                             <span>
                                 <Icon as={FaRegCalendarCheck} boxSize={5} m={1} className={styles.sessionIcons}  
-                                onClick={() => setRevealDate(prev => !prev)}
+                                onClick={revealScheduler}
                                 />
                             </span>
                         </Tooltip>
@@ -117,6 +131,7 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
                         </Tooltip>
                     </Flex>
                 </Flex>
+                {errorMsg && <Text color='red.300'>{errorMsg}</Text>}
                 {revealDate &&
                 <Flex flexDir='column'>
                     <Input type='datetime-local' value={date} onChange={e => setDate(e.target.value)} />
@@ -124,6 +139,8 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
                 </Flex>
                 }
             </Flex>
+
+            {/* BACKSIDE */}
             <Flex flexDir='column' justify='start' className={selectedCard === session.id ? styles.backSide : styles.backSideFlipped}>
                 <Flex justify='space-between' w='100%' p={5}>
                         <Text>Exercises</Text>

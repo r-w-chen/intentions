@@ -9,7 +9,7 @@ export default function SkillInput() {
     const [showInput, setShowInput] = useState(false);
     const [invalidInput, setInvalidInput] = useState(false);
     const input = useRef(null); // Create ref for input so it can be focused upon button press
-    const { isOpen, onToggle } = useDisclosure();
+    // const { isOpen, onToggle } = useDisclosure();
     
     const errors = useSelector(state => state.errors.skills);
     const user = useSelector(state => state.session.user);
@@ -45,23 +45,37 @@ export default function SkillInput() {
         }
     }
 
-    const toggleInput = (e) =>{
-        onToggle();
-        e.target.blur();
-        dispatch(clearErrors());
-        setShowInput(prev => !prev);
-        if(showInput){
-            input.current.focus();
-        } else {
-            input.current.blur();
-        }
+    // const toggleInput = (e) =>{
+    //     // onToggle();
+    //     e.target.blur();
+    //     dispatch(clearErrors());
+    //     setShowInput(prev => !prev);
+    //     if(showInput){
+    //         input.current.focus();
+    //     } else {
+    //         input.current.blur();
+    //     }
 
-        setSkillName(''); // Clear input after every toggle
+    //     setSkillName(''); // Clear input after every toggle
+    // }
+
+    const handleAddSkill = e => {
+        const newSkill = {
+            name: skillName.trim(),
+            user_id: user.id
+        }
+        dispatch(addSkill(newSkill));
+        setSkillName('');
+        e.target.blur();
     }
     return (
         <Flex>
-            <Button m={3} onClick={toggleInput}>Add Skill</Button>
-            <SlideFade in={isOpen}>
+            <Button m={3} mr='0px' transition='100ms' borderRadius='full' bg='#385170' color='#ECECEC'
+             _hover={{bg:'#142D4C'}} onClick={handleAddSkill}
+             >
+                Add Skill
+            </Button>
+            <SlideFade in={true}>
                 <Input m={3} w={'300px'} bg='gray.100' errorBorderColor='crimson' isInvalid={invalidInput}
                 value={skillName}
                 onChange={e => setSkillName(e.target.value)}
