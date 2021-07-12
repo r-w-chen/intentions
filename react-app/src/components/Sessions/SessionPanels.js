@@ -28,7 +28,7 @@ export default function SessionPanels({ skill }) {
     return (
         <Box h='100%' w='100%'>
                 <Box h='100%' w='100%' display='flex'>
-                    <SimpleGrid columns={[1, null, 2, 3]} spacing={8} w='70%' m={5}>
+                    <SimpleGrid columns={[1, null, 2, 3]} spacing={8} w='70%' m={5} gridRowGap='0px'>
                     {sessionsList.length ? sessionsList.filter(session => skill.id === session.skill_id)?.map(session => (
                         <SessionCard session={session} setSelectedCard={setSelectedCard} selectedCard={selectedCard}/>
                     )) : null}

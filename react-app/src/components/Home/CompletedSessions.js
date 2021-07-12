@@ -12,7 +12,7 @@ export default function CompletedSessions() {
             setIsLoaded(true);
         }
     }, [completed])
-    return isLoaded && (
+    return (
         <Stack w='50%' overflow='scroll' spacing={0}>
             <Accordion bg='#9FD3C7' allowToggle  allowMultiple={false}>
             <Text p={3} bg='#ECECEC'>Completed Sessions</Text>

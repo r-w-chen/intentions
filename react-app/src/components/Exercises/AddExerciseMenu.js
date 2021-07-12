@@ -50,7 +50,8 @@ export default function AddExerciseMenu({ skills, selectedTab }) {
 	// TODO: validations
 	return (
 			<>
-				<Button onClick={onOpen}>
+				<Button onClick={onOpen} m={3} transition='100ms' borderRadius='full' bg='#385170' color='#ECECEC'
+             	_hover={{bg:'#142D4C'}}>
 						Add Exercise
 				</Button>
 				<Drawer isOpen={isOpen} placement='right' onClose={onClose} size='sm'>
