@@ -74,7 +74,6 @@ export const deleteSkill = skillId => async dispatch => {
     const res = await fetch(`/api/skills/${skillId}`, {
         method: 'DELETE'
     })
-    console.log("res", res.ok)
     if(res.ok){
         dispatch(removeSkill(skillId))
     }
@@ -89,7 +88,6 @@ export const updateSkill = skill => async dispatch => {
         body: JSON.stringify(skill)
     })
     const data = await res.json();
-    console.log(data, skill);
     dispatch(setUpdatedSkill(data));
 }
 

@@ -74,7 +74,7 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
 
     const handleSessionEditOnEnter = (e) => {
         if (e.key === "Enter"){
-            console.log("new name", editName)
+            // console.log("new name", editName)
             dispatch(updateSession(session.id, editName))
             setEditSessionMode(false);
         }

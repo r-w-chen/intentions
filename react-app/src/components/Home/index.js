@@ -8,6 +8,8 @@ import { AiOutlineClockCircle } from 'react-icons/ai';
 import styles from '../../css.modules/Dashboard.module.css';
 import TodaysTodos from './TodaysTodos';
 import CompletedSessions from './CompletedSessions';
+import VerticalBar from './VerticalBar';
+import MatrixChart from './MatrixChart';
 import { getTodos } from '../../store/todo-sessions';
 export default function Home({ user }) {
     const dispatch = useDispatch();
@@ -20,29 +22,31 @@ export default function Home({ user }) {
     }, [dispatch, user.id])
 
     useEffect(() => {
-        const int = setInterval(() => {
-            setCurrentTime(moment().format('hh:mm:ss a'))
-        }, 1000)
-        return () => clearInterval(int)
+        // const int = setInterval(() => {
+        //     setCurrentTime(moment().format('hh:mm:ss a'))
+        // }, 1000)
+        // return () => clearInterval(int)
     }, [])
 
     return (
         <Box boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>
-            <Flex p={3} m={5} boxShadow='lg' borderRadius='lg' bg='#ECECEC'>
-                <Flex w='70%' h='100%' justify='center'>
-                    <Box h='90%' m={6}>
+            <Flex p={3} m={5} boxShadow='lg' h='50%' borderRadius='lg' bg='#ECECEC'>
+                <Flex w='50%' mh='100%' justify='center'>
+                    {/* <Box h='90%' m={6}>
                         <Text fontSize={64}>Welcome back</Text>
                         <Text fontSize={32}>{moment().format('dddd, MMMM Do YYYY')}</Text>
                         <Text><Icon boxSize={5} m={2} as={AiOutlineClockCircle}/>{currentTime}</Text>
-                    </Box>
+                    </Box> */}
                     {/* <Box h='10%' bg='#385170'>Habit Tracker Placeholder</Box> */}
+                    <VerticalBar />
                 </Flex>
                 <Box w='30%'>
-                <Calendar
+                {/* <Calendar
                     onChange={onChange}
                     value={value}
                     calendarType='US'
-                />
+                /> */}
+                <MatrixChart />
                 </Box>
             </Flex>
             <Flex h='45%' p={3} m={5} boxShadow='lg' borderRadius='lg' bg='#ECECEC'>

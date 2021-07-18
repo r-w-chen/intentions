@@ -17,7 +17,7 @@ export default function SessionPanels({ skill }) {
             const currentSession = sessions[selectedCard];  //grab the session obj
             const sessionExercises = Object.values(currentSession.exercises); // grab the associated session_exercises as a list
             const includesExercise = sessionExercises.some(ex => ex.exercise.id === exerciseId) // check if any of the session_exercises have the same id as the exercise I'm adding
-            console.log('SESSION ALREADY HAS THIS EX', includesExercise);
+            // console.log('SESSION ALREADY HAS THIS EX', includesExercise);
         
             // If there is a session card currently selected AND it does not already include the exercise I'm adding...
             if(selectedCard && !includesExercise){
