@@ -15,6 +15,7 @@ export default function Home({ user }) {
     const dispatch = useDispatch();
     // const date = Date().split(' ').slice(1, 4).join(' ');
     // console.log(date);
+    // const todos = useSelector(state => Object.values(state.todoSessions))
     const [currentTime, setCurrentTime] = useState('')
     const [value, onChange] = useState(new Date());
     useEffect(() => {
@@ -27,11 +28,17 @@ export default function Home({ user }) {
         // }, 1000)
         // return () => clearInterval(int)
     }, [])
-
+    // const mappedTodos = todos.map(todo => {
+    //     return {
+    //         completed: todo.completed,
+    //         date_scheduled: todo.date_scheduled
+    //     }
+    // })
+    console.log('rerendered from home index')
     return (
         <Box boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>
-            <Flex p={3} m={5} boxShadow='lg' h='50%' borderRadius='lg' bg='#ECECEC'>
-                <Flex w='50%' mh='100%' justify='center'>
+            <Flex p={3} m={5} boxShadow='lg' borderRadius='lg' bg='#ECECEC'>
+                <Flex flex={2} mh='100%' justify='center'>
                     {/* <Box h='90%' m={6}>
                         <Text fontSize={64}>Welcome back</Text>
                         <Text fontSize={32}>{moment().format('dddd, MMMM Do YYYY')}</Text>
@@ -40,12 +47,12 @@ export default function Home({ user }) {
                     {/* <Box h='10%' bg='#385170'>Habit Tracker Placeholder</Box> */}
                     <VerticalBar />
                 </Flex>
-                <Box w='30%'>
-                {/* <Calendar
+                <Box w='30%' flex={1}>
+                <Calendar
                     onChange={onChange}
                     value={value}
                     calendarType='US'
-                /> */}
+                />
                 <MatrixChart />
                 </Box>
             </Flex>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { Bar } from 'react-chartjs-2';
 import moment from 'moment';
 
@@ -43,6 +43,7 @@ const calculateWeeklyCompletions = (todos) => {
 
     // Find which todos belong in which week
     for(let todo of todos){
+        todo = JSON.parse(todo);
         const ms = moment(todo.date_scheduled).valueOf();
         if(ms >= range4w[0] && ms <= range4w[1]){
             fourWeeksAgo.push(todo);
@@ -75,9 +76,20 @@ const calculateWeeklyCompletions = (todos) => {
 
 // [.99, .5, .4, .6, .7]
 export default function VerticalBar() {
-    // console.log(moment().day(-28).startOf('day').valueOf())
-    // console.log(moment().startOf('day').valueOf())
-    const todos = useSelector(state => Object.values(state.todoSessions))
+
+    // jsonifying the array so it can be checked for shallow equality - did this to prevent the graph from re-rendering more than needed
+    const todos = useSelector(state => {
+      let newTodos = []
+      for(let id in state.todoSessions){
+        let newObj = {}
+        newObj['completed'] = state.todoSessions[id].completed;
+        newObj['date_scheduled'] = state.todoSessions[id].date_scheduled;
+        newTodos.push(JSON.stringify(newObj));
+      }
+      // console.log('new todos',newTodos);
+      return newTodos;
+    }, shallowEqual)
+
     
     const data = {
         labels:  [fourWeeksAgo, threeWeeksAgo, twoWeeksAgo, oneWeeksAgo, thisWeek], //represents each column
@@ -105,7 +117,7 @@ export default function VerticalBar() {
           },
         ],
       };
-    return (
+    return ( 
             <Bar  data={data} options={options}/>
     )
 }
