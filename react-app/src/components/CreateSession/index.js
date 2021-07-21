@@ -42,7 +42,7 @@ export default function CreateSession() {
             user_id: user.id,
             exercises: sessionExercises
         }
-        console.log("CREATE", session);
+        // console.log("CREATE", session);
         dispatch(addSession(session));
         // redirect to sessions after create?
         history.push('/dashboard/sessions');

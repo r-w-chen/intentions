@@ -47,18 +47,18 @@ export default function Sessions({ skills }) {
         }
     }
 
-    const toggleInput = (e) =>{
-        onToggle();
-        e.target.blur();
-        // dispatch(clearErrors());
-        setShowInput(prev => !prev);
-        if(showInput){
-            input.current.focus();
-        } else {
-            input.current.blur();
-        }
-        setSessionName(''); // Clear input after every toggle
-    }
+    // const toggleInput = (e) =>{
+    //     onToggle();
+    //     e.target.blur();
+    //     // dispatch(clearErrors());
+    //     setShowInput(prev => !prev);
+    //     if(showInput){
+    //         input.current.focus();
+    //     } else {
+    //         input.current.blur();
+    //     }
+    //     setSessionName(''); // Clear input after every toggle
+    // }
 
     const handleAddSession = e => {
         const newSession = {

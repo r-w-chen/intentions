@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Exercise, Session, Session_exercise, db
+from app.models import Exercise, Session, Session_exercise, db, TodoSession, TodoExercise
 
 sessions_routes = Blueprint('sessions', __name__)
 
@@ -48,6 +48,16 @@ def add_session_exercise(session_id):
     session_exercise.exercise_id = request.json
     session_exercise.session_id = session_id
     db.session.add(session_exercise)
+    # Check if there are any scheduled todos for this session I'm adding to
+    # If there is, create a todo_exercise tied to each todo_session relating to that session
+    todo_sessions = TodoSession.query.filter(TodoSession.session_id == session_id).all()
+    if todo_sessions:
+        for todo in todo_sessions:
+            # Create a new todo_exercise 
+            todo_exercise = TodoExercise()
+            todo_exercise.todo_session_id = todo.id
+            todo_exercise.session_exercise_id = session_exercise.id
+            db.session.add(todo_exercise)
     db.session.commit()
     return session_exercise.to_dict()
 

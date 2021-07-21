@@ -60,7 +60,7 @@ export const addSession = session => async dispatch => {
         body: JSON.stringify(session)
     });
     const data = await res.json();
-    console.log(data)
+    // console.log(data)
     if(data.errors){
         // TODO: update errors store
     } else {
@@ -90,7 +90,7 @@ export const updateSession = (sessionId, name) => async dispatch => {
         // TODO: update errors store
     } else {
         dispatch(setUpdateSession(data));
-        console.log("UPDATED SESH", data)
+
     }
 }
 
@@ -121,7 +121,6 @@ export const addSessionExercise = (sessionId, exerciseId) => async dispatch => {
         body: JSON.stringify(exerciseId)
     })
     const data = await res.json();
-    console.log('SESSION EX', data);
     dispatch(setAddSessionExercise(data))
 }
 
@@ -151,10 +150,10 @@ export default function dashboardSessions(state = {}, action) {
         case DELETE_SESSION_EXERCISE:
             newState = JSON.parse(JSON.stringify(state));
             const session = newState[action.sessionId];
-            console.log('SESSION TO DELETE', session, session.exercises);
+            // console.log('SESSION TO DELETE', session, session.exercises);
             delete session.exercises[action.exerciseId];
-            console.log("EXERCISE TO DELETE", action.exerciseId)
-            console.log(session.exercises)
+            // console.log("EXERCISE TO DELETE", action.exerciseId)
+            // console.log(session.exercises)
             return newState;
         default:
             return state;

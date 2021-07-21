@@ -95,7 +95,6 @@ export const updateExerciseName = exercise => async dispatch => {
 		body: JSON.stringify(exercise)
 	})
 	const data = await res.json();
-	console.log(data);
 	if(res.ok){
 		dispatch(setEditExercise(data))
 	}
@@ -111,7 +110,6 @@ export const updateExerciseNotes = exercise => async dispatch => {
 		body: JSON.stringify(exercise)
 	});
 	const data = await res.json();
-	console.log(data);
 	if(res.ok){
 		dispatch(setEditExercise(data));
 	}

@@ -22,7 +22,7 @@ export default function SingleExercise({exercise, setCurrentExercise}) {
     // TODO: save edits on blur as well
     const saveEditsOnEnter = (e) => {
         if (e.key === 'Enter'){
-            console.log(name);
+            // console.log(name);
             const updatedExercise = {
                 id: exercise.id,
                 name,
