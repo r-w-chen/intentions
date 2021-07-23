@@ -11,8 +11,8 @@ import Exercises from '../Exercises';
 import Sessions from '../Sessions';
 import CreateSession from '../CreateSession';
 import Scheduled from '../Scheduled';
+import Calendar from '../Calendar';
 import styles from '../../css.modules/SideNav.module.css';
-
 function Dashboard() {
 
     const skills = useSelector(state => state.skills);
@@ -79,6 +79,7 @@ function Dashboard() {
                 </Route>
                 <Route path="/dashboard/scheduled">
                     <Scheduled user={user}/>
+                    {/* <Calendar /> */}
                 </Route>
                 <Route>
                     <h1>Page cannot be found</h1>
