@@ -138,3 +138,8 @@ ECECEC
 .deleteSessionConfirm{
     width: 100px;
 }
+
+.reactCalendar{
+    margin: 20px;
+    width: 100%;
+}

@@ -7,7 +7,7 @@ export default function SkillsGrid() {
     const skills = useSelector(state => Object.values(state.skills))
     
     return (
-        <SimpleGrid w='100%' columns={[1, 2, null, 3]} position='relative' zIndex={1}>
+        <SimpleGrid w='100%' columns={[1, 2, null, 3, 4]} position='relative' zIndex={1}>
                 {skills.map(skill => (
                     <SkillCard skill={skill} key={skill.id}/>
                 ))}

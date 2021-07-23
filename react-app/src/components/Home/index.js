@@ -34,7 +34,6 @@ export default function Home({ user }) {
     //         date_scheduled: todo.date_scheduled
     //     }
     // })
-    console.log('rerendered from home index')
     return (
         <Box boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>
             <Flex p={3} m={5} boxShadow='lg' borderRadius='lg' bg='#ECECEC'>
@@ -47,13 +46,14 @@ export default function Home({ user }) {
                     {/* <Box h='10%' bg='#385170'>Habit Tracker Placeholder</Box> */}
                     <VerticalBar />
                 </Flex>
-                <Box w='30%' flex={1}>
+                <Box w='30%' display='flex' flex={1} alignSelf='center' justifyContent='center'>
                 <Calendar
                     onChange={onChange}
                     value={value}
                     calendarType='US'
+                    className={styles.reactCalendar}
                 />
-                <MatrixChart />
+                {/* <MatrixChart /> */}
                 </Box>
             </Flex>
             <Flex h='45%' p={3} m={5} boxShadow='lg' borderRadius='lg' bg='#ECECEC'>
