@@ -6,7 +6,7 @@ import EditDeleteMenu from './EditDeleteMenu';
 import { deleteExercise, updateExerciseName } from '../../store/exercises';
 import styles from '../../css.modules/Dashboard.module.css';
 
-export default function SingleExercise({exercise, setCurrentExercise}) {
+export default function SingleExercise({exercise, setCurrentExercise, currentExercise}) {
     const [isHovered, setIsHovered] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
     const [editName, setEditName] = useState(false);
@@ -40,7 +40,7 @@ export default function SingleExercise({exercise, setCurrentExercise}) {
         onClose={closeDelete}
         >
             <PopoverTrigger>
-            <Flex h={75} p={5} borderRadius='lg' boxShadow='lg' justify='space-between' className={styles.exerciseBox} 
+            <Flex h={75} p={5} borderRadius='lg' boxShadow='lg' justify='space-between' className={currentExercise.id === exercise.id ? styles.exerciseBox_selected : styles.exerciseBox} 
             onClick={() => setCurrentExercise(exercise)}
             onMouseOver={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}

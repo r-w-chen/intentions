@@ -9,7 +9,7 @@ const UPDATE_SKILL = "skills/UPDATE_SKILL";
 const ADD_EXERCISE_TO_SKILL = "skills/ADD_EXERCISE_TO_SKILL";
 const CHANGE_EXERCISE_IN_SKILL = "skills/CHANGE_EXERCISE_IN_SKILL";
 const REMOVE_EXERCISE_FROM_SKILL = "skills/REMOVE_EXERCISE_FROM_SKILL";
-
+const CLEAR_SKILLS = "skills/CLEAR_SKILLS";
 // ACTION CREATORS
 const setAddSkill = skill => {
     return {
@@ -43,6 +43,12 @@ export const addExerciseToSkill = exercise => {
     return {
         type: ADD_EXERCISE_TO_SKILL,
         exercise
+    }
+}
+
+export const clearSkills = () => {
+    return {
+        type: CLEAR_SKILLS
     }
 }
 
@@ -110,6 +116,8 @@ const skills = (state = {} , action) => {
         case ADD_EXERCISE_TO_SKILL:
             newState[action.exercise.skill_id].exercises.push(action.exercise);
             return newState;
+        case CLEAR_SKILLS:
+            return {};
         default:
             return state;
     }

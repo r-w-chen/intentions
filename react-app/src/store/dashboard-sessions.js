@@ -5,6 +5,7 @@ const UPDATE_SESSION = 'dashboardSessions/UPDATE_SESSION';
 const DELETE_SESSION = 'dashboardSessions/DELETE_SESSION';
 const DELETE_SESSION_EXERCISE = 'dashboardSessions/DELETE_SESSION_EXERCISE';
 const ADD_SESSION_EXERCISE = 'dashboardSessions/ADD_SESSION_EXERCISE';
+const CLEAR_SESSIONS = 'dashboardSessions/CLEAR_SESSIONS';
 
 // ACTION CREATORS
 const setAddSession = session => {
@@ -47,6 +48,12 @@ const setAddSessionExercise = sessionExercise => {
     return {
         type: ADD_SESSION_EXERCISE,
         sessionExercise
+    }
+}
+
+export const clearSessions = () => {
+    return {
+        type: CLEAR_SESSIONS
     }
 }
 // THUNKS
@@ -155,6 +162,8 @@ export default function dashboardSessions(state = {}, action) {
             // console.log("EXERCISE TO DELETE", action.exerciseId)
             // console.log(session.exercises)
             return newState;
+        case CLEAR_SESSIONS:
+            return {};
         default:
             return state;
     }

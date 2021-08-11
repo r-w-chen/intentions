@@ -62,8 +62,17 @@ ECECEC
 }
 .exerciseBox {
     background: #ECECEC;
+    transition: .3s;
 }
 
+.exerciseBox_selected{
+    background: #cacaca;
+}
+
+.exerciseBox:hover{
+    cursor: pointer;
+    background: #cacaca;
+}
 
 /* SESSIONS */
 

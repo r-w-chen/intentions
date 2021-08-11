@@ -1,3 +1,7 @@
+import { clearTodoSessions } from './todo-sessions';
+import { clearSkills } from './skills';
+import { clearExercises } from './exercises';
+import { clearSessions } from './dashboard-sessions';
 // constants
 const SET_USER = "session/SET_USER"
 const REMOVE_USER = "session/REMOVE_USER"
@@ -55,6 +59,10 @@ export const logout = () => async (dispatch) => {
     // const data = await response.json();
     if(response.ok){
         dispatch(removeUser());
+        dispatch(clearTodoSessions());
+        dispatch(clearSkills());
+        dispatch(clearExercises());
+        dispatch(clearSessions());
     }
 };
 

@@ -86,6 +86,7 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
         setEditSessionMode(false)
     }
 
+
     return (
         <Tooltip label={`Scheduled for ${moment(date).format('dddd, MMMM Do YYYY, h:mm a')}`} isOpen={sessionIsScheduled}>
         <Box w='100%' h={275} borderRadius='md' boxShadow='lg' bg='#ECECEC' border='1px solid lightgray' transition='300ms'
@@ -134,7 +135,7 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
                 {errorMsg && <Text color='red.300'>{errorMsg}</Text>}
                 {revealDate &&
                 <Flex flexDir='column'>
-                    <Input type='datetime-local' value={date} onChange={e => setDate(e.target.value)} />
+                    <Input type='datetime-local' min={`${moment().format('YYYY-MM-DD')}T00:00`} value={date} onChange={e => setDate(e.target.value)} />
                     <Button onClick={handleScheduleSession}>Schedule</Button>
                 </Flex>
                 }

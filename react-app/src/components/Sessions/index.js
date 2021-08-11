@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, Redirect } from 'react-router-dom';
 import { Box, Text, Button, useDisclosure, Flex, SlideFade, Input } from '@chakra-ui/react';
 import SessionSkillTabs from '../SkillTabs/SessionSkillTabs';
 import SessionPanels from './SessionPanels';
@@ -14,20 +14,21 @@ export default function Sessions({ skills }) {
     const dispatch = useDispatch();
     const { isOpen, onToggle } = useDisclosure();
     const input = useRef(null); // Create ref for input so it can be focused upon button press
+    const skillsArr = Object.values(skills)
 
     const [sessionName, setSessionName] = useState('');
     const [showInput, setShowInput] = useState(false);
     const [invalidInput, setInvalidInput] = useState(false);
 
 
-    useEffect(() => {
-        if(showInput){
-            input.current.focus();
-        } else {
-            input.current.blur();
-        }
-    }, [showInput])
-
+    // useEffect(() => {
+    //     if(showInput){
+    //         input.current.focus();
+    //     } else {
+    //         input.current.blur();
+    //     }
+    // }, [showInput])
+    
     useEffect(() => {
         dispatch(getSessions(user.id))
         dispatch(getSkills(user.id))
@@ -73,7 +74,10 @@ export default function Sessions({ skills }) {
     return (
         <Box boxShadow='lg' borderRadius='lg' m={3} className={styles.dashboardContent}>
             <SessionSkillTabs skills={Object.values(skills)} />
-            <Flex m={1}>
+           
+            {skills[skillId] ? (
+            <>
+             <Flex m={1}>
                 <Button m={2} transition='100ms' borderRadius='full' bg='#385170' color='#ECECEC'
                 _hover={{bg:'#142D4C'}} onClick={handleAddSession}>Add Session</Button>
                 <SlideFade in={true}>
@@ -86,11 +90,16 @@ export default function Sessions({ skills }) {
                 />
                 </SlideFade>
             </Flex>
-            {skills[skillId] ? 
             <SessionPanels skill={skills[skillId]}/>
+            </>
+            )
             :
             <Box m={10}>
-                <Text fontSize={32}>Skill Not Found</Text>
+                {skillsArr.length ? 
+                <Text fontSize={24}>Select a Skill to view Sessions!</Text>
+                :
+                <Link to="/dashboard/skills"><Text fontSize={24} _hover={{color: '#385170'}}>Create a Skill to add Sessions and Exercises!</Text></Link>
+                }
             </Box>
             }
         </Box>

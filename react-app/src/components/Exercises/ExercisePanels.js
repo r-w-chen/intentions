@@ -59,7 +59,7 @@ export default function ExercisePanels({ skills }) { // Contains actual content 
                 <TabPanel key={skill.id} h='80%' display='flex'>
                     <Stack borderRadius='lg' m={5} p={3} spacing={5} className={styles.exerciseList} boxShadow='lg'>
                         {exercisesBySkllId[skill.id]?.map(exercise => (
-                            <SingleExercise exercise={exercise} setCurrentExercise={setCurrentExercise} key={exercise.id}/>
+                            <SingleExercise exercise={exercise} currentExercise={currentExercise} setCurrentExercise={setCurrentExercise} key={exercise.id}/>
                         ))}
                     </Stack>
                     <Box bg='white' m={5} onBlur={saveNotesOnBlur} className={styles.exerciseNotes} borderRadius='lg' boxShadow='lg'>

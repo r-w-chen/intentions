@@ -34,7 +34,7 @@ export default function DeleteSession({session}) {
                 <PopoverHeader>Confirmation</PopoverHeader>
                 <PopoverBody>Delete this session?</PopoverBody>
                 <PopoverFooter>
-                    <Button bg='crimson' onClick={handleDelete}>Yes</Button>
+                    <Button color="white" bg='#e53e3e' _hover={{bg:"#c53030"}}onClick={handleDelete}>Yes</Button>
                 </PopoverFooter>
             </PopoverContent>
             </Popover>

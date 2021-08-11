@@ -50,7 +50,7 @@ export default function Scheduled({user}) {
 
     }
 
-    return isLoaded && (
+    return (
         <Flex boxShadow='lg' borderRadius='lg' justify='center' align='center' m={3} className={styles.dashboardContent}>
             <VStack w='70%' h='90%' overflow='auto' bg='#385170' boxShadow='lg' borderRadius='lg'>
                 <Text color='#ECECEC' fontSize={24} textAlign='center' p={3}>
@@ -61,7 +61,7 @@ export default function Scheduled({user}) {
                     <Text flex={2}>Date Scheduled</Text>
                     <Flex flex={1}></Flex>
                 </Flex> */}
-                {todos.map(todo => (
+                {isLoaded && todos.map(todo => (
                     <Flex p={3} w='90%' justify='space-between' align='center' color='#ECECEC'>
                         <Icon as={AiOutlineSchedule} boxSize={5} mr={3}/>
                         <Text flex={1}>{todo.session.name}</Text>

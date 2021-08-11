@@ -4,8 +4,8 @@ import { addExerciseToSkill } from "./skills";
 const SET_EXERCISES = 'exercises/SET_EXERCISES';
 const ADD_EXERCISE = 'exercises/ADD_EXERCISE';
 const EDIT_EXERCISE = 'exercises/EDIT_EXERCISE';
-
 const DELETE_EXERCISE = 'exercises/DELETE_EXERCISE';
+const CLEAR_EXERCISES = 'exercises/CLEAR_EXERCISES';
 
 // ACTION CREATORS
 const setExercises = exercises => {
@@ -37,7 +37,11 @@ const setDeleteExercise = (exerciseId, skillId) => {
 	}
 }
 
-
+export const clearExercises = () => {
+	return {
+		type: CLEAR_EXERCISES
+	}
+}
 // THUNKS
 export const addExercise = exercise => async dispatch => {
 	const res = await fetch('/api/exercises/', {
@@ -150,6 +154,8 @@ export default function exercises(state = {}, action) {
 			const exercisesForSkill = newState[action.skillId];
 			delete exercisesForSkill[action.exerciseId];
 			return newState;
+		case CLEAR_EXERCISES:
+			return {};
 		default:
 			return newState;
 	}

@@ -16,7 +16,7 @@ import styles from '../../css.modules/SideNav.module.css';
 function Dashboard() {
 
     const skills = useSelector(state => state.skills);
-    const skillsArr = Object.values(skills)
+    // const skillsArr = Object.values(skills)
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
 
@@ -26,20 +26,20 @@ function Dashboard() {
         dispatch(getSkills(user.id));
     }, [dispatch, user.id])
 
-    useEffect(() => {
-        if(skillsArr.length){
-            setIsLoaded(true);
-        }
-    }, [skillsArr])
+    // useEffect(() => {
+    //     if(skillsArr.length){
+    //         setIsLoaded(true);
+    //     }
+    // }, [skillsArr])
 
-    return isLoaded && (
+    return (
         <>
         <Flex className={styles.dashboardContainer}>
                 <Flex direction='column' justify='space-between' h={'100%'} w={'250px'} bg='#ECECEC85' >
                     <Flex direction='column'>
                         <NavLink to="/dashboard/home" className={styles.navLink}><Icon as={BsHouseDoor} m={2}/> Home</NavLink>
                         <NavLink to="/dashboard/skills" className={styles.navLink}><Icon as={BsFolderCheck} m={2}/> Skills</NavLink>
-                        <NavLink to={`/dashboard/sessions/${skillsArr[0].id}`} className={styles.navLink}><Icon as={BsCardChecklist} m={2}/> Sessions</NavLink>
+                        <NavLink to={`/dashboard/sessions/`} className={styles.navLink}><Icon as={BsCardChecklist} m={2}/> Sessions</NavLink>
                         <NavLink to="/dashboard/exercises" className={styles.navLink}><Icon as={BsBook} m={2}/> Exercises</NavLink>
                         {/* <NavLink to="/dashboard/create-session" className={styles.navLink}><Icon as={BsPencil} m={2}/> Create Session</NavLink> */}
                         <NavLink to="/dashboard/scheduled" className={styles.navLink}><Icon as={BsCalendar} m={2}/>Scheduled Sessions</NavLink>
@@ -68,7 +68,10 @@ function Dashboard() {
                 <Route path="/dashboard/skills">
                     <Skills />
                 </Route>
-                <Route path="/dashboard/sessions/:skillId">
+                <Route exact path="/dashboard/sessions">
+                    <Sessions skills={skills}/> 
+                </Route>
+                <Route exact path="/dashboard/sessions/:skillId">
                     <Sessions skills={skills}/>
                 </Route>
                 <Route path="/dashboard/create-session">

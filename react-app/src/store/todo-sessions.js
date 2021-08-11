@@ -10,7 +10,7 @@ const SET_TODOS = 'todo-sessions/SET_TODOS';
 const REMOVE_TODO = 'todo-sessions/REMOVE_TODO';
 const UPDATE_TODO_EXERCISE = 'todo-sessions/UPDATE_TODO_EXERCISE';
 const UPDATE_TODO_SESSION_STATUS = 'todo-sessions/UPDATE_TODO_SESSION_STATUS';
-
+const CLEAR_TODOS = 'todo-sessions/CLEAR_TODOS';
 // ACTION CREATORS
 const setAddTodo = (todo) => {
     return {
@@ -44,6 +44,12 @@ const setTodoSessionStatus = (todo) => {
     return {
         type: UPDATE_TODO_SESSION_STATUS,
         todo
+    }
+}
+
+export const clearTodoSessions = () => {
+    return {
+        type: CLEAR_TODOS
     }
 }
 
@@ -148,6 +154,8 @@ export default function todoSessions(state = {}, action){
             newState = JSON.parse(JSON.stringify(state));
             delete newState['+' + action.todoId];
             return newState;
+        case CLEAR_TODOS:
+            return {};
         default:
             return state;
     }
