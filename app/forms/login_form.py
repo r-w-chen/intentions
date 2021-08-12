@@ -20,10 +20,10 @@ def password_matches(form, field):
     if not user:
         raise ValidationError("No such user exists.")
     if not user.check_password(password):
-        raise ValidationError("Password was incorrect.")
+        raise ValidationError("Incorrect password. Please try again.")
 
 
 class LoginForm(FlaskForm):
-    email = StringField('email', validators=[DataRequired(), user_exists])
+    email = StringField('email', validators=[DataRequired('Enter a valid email.'), user_exists])
     password = StringField('password', validators=[
-                           DataRequired(), password_matches])
+                           DataRequired('Enter a valid password.'), password_matches])

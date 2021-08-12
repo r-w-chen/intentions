@@ -1,0 +1,7 @@
+.errorContainer{
+    margin-top: 5px;
+}
+.authErrorMsg{
+    color: red;
+    font-size: 12px;
+}
