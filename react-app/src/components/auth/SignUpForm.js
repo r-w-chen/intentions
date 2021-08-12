@@ -3,6 +3,7 @@ import { Flex, FormControl, FormLabel, Input, Button, Text} from '@chakra-ui/rea
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import Footer from '../Footer';
 
 const SignUpForm = () => {
   const history = useHistory();
@@ -91,6 +92,7 @@ const SignUpForm = () => {
         </Button>
       </Flex>
     </FormControl>
+    <Footer />
     </Flex>
   );
 };

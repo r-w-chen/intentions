@@ -3,6 +3,7 @@ import { Flex, FormControl, FormLabel, Input, Button, Text} from '@chakra-ui/rea
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
+import Footer from '../Footer';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -82,6 +83,7 @@ const LoginForm = () => {
           </Button>
           </Flex>
       </FormControl>
+      <Footer />
     </Flex>
   );
 };
