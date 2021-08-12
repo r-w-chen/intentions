@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
+
 import { useDispatch } from 'react-redux';
 import { Popover, PopoverTrigger, PopoverContent, PopoverHeader, PopoverBody, PopoverFooter, PopoverArrow, PopoverCloseButton,
-         Icon, Button } from '@chakra-ui/react';
+         Icon, Button, IconButton } from '@chakra-ui/react';
 import { TiTrash } from 'react-icons/ti';
 import { deleteSessions } from '../../store/dashboard-sessions';
 import styles from '../../css.modules/Dashboard.module.css';
 
-export default function DeleteSession({session}) {
+export default function DeleteSession({session, openDelete, setOpenDelete}) {
     // Hooks
     const dispatch = useDispatch();
     // State
-    const [openDelete, setOpenDelete] = useState(false);
 
     const closeDelete = () => setOpenDelete(false); // close popover
 
@@ -19,16 +18,16 @@ export default function DeleteSession({session}) {
     }
     return (
         <Popover 
-        placement='left'
+        placement='right'
         isOpen={openDelete}
         onClose={closeDelete}
         >
             <PopoverTrigger>
-                <Icon as={TiTrash} boxSize={6} m={1} className={styles.sessionIcons}
+                <IconButton icon={<TiTrash/>} boxSize={6} m={1} className={styles.sessionIcons}
                 onClick={() => setOpenDelete(true)}
-                />
+                ></IconButton>
             </PopoverTrigger>
-            <PopoverContent>
+            <PopoverContent w={150}>
                 <PopoverArrow />
                 <PopoverCloseButton />
                 <PopoverHeader>Confirmation</PopoverHeader>
