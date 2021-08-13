@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, Switch } from 'react-router-dom';
-import { Flex, Icon, Link, Text } from '@chakra-ui/react';
+import { Flex, Icon, Link, Text, Button } from '@chakra-ui/react';
 import { BsCardChecklist, BsBook, BsHouseDoor, BsPencil, BsFolderCheck, BsCalendar } from "react-icons/bs";
 import { AiOutlineGithub, AiOutlineLinkedin, AiOutlineMail } from 'react-icons/ai';
 import { getSkills } from '../../store/skills';
@@ -12,6 +12,7 @@ import Sessions from '../Sessions';
 import CreateSession from '../CreateSession';
 import Scheduled from '../Scheduled';
 import Calendar from '../Calendar';
+import HelpModal from '../HelpModal';
 import styles from '../../css.modules/SideNav.module.css';
 function Dashboard() {
 
@@ -43,6 +44,7 @@ function Dashboard() {
                         <NavLink to="/dashboard/exercises" className={styles.navLink}><Icon as={BsBook} m={2}/> Exercises</NavLink>
                         {/* <NavLink to="/dashboard/create-session" className={styles.navLink}><Icon as={BsPencil} m={2}/> Create Session</NavLink> */}
                         <NavLink to="/dashboard/scheduled" className={styles.navLink}><Icon as={BsCalendar} m={2}/>Scheduled Sessions</NavLink>
+                        <HelpModal/>
                     </Flex>
                     <Flex m={3} direction='column'>
                         <Text>Created by <Link color='#385170' href='https://github.com/r-w-chen'>Becky Chen</Link></Text>

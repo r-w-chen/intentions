@@ -21,6 +21,7 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
     const [editName, setEditName] = useState(session.name);
     const [editSessionMode, setEditSessionMode] = useState(false);
     const [sessionIsScheduled, setSessionIsScheduled] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
 
     useEffect(() => {
@@ -106,28 +107,28 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
                     <Flex className={styles.sessionIconMenu}>
                             <Tooltip label='View exercises' placement='right' hasArrow>
                                 <span>
-                                    <Icon as={TiArrowBackOutline} boxSize={6} m={1} className={styles.sessionIcons}
+                                    <IconButton icon={<TiArrowBackOutline/>} boxSize={6} m={1} className={styles.sessionIcons}
                                     onClick={changeCard}
                                     />
                                 </span>
                             </Tooltip>
                         <Tooltip label='Schedule session' placement='right' hasArrow>
                             <span>
-                                <Icon as={FaRegCalendarCheck} boxSize={5} m={1} className={styles.sessionIcons}  
+                                <IconButton icon={<FaRegCalendarCheck/>} boxSize={5} m={1} className={styles.sessionIcons}  
                                 onClick={revealScheduler}
                                 />
                             </span>
                         </Tooltip>
                         <Tooltip label='Edit session name' placement='right' hasArrow>
                             <span>
-                                <Icon as={TiEdit} boxSize={6} m={1} className={styles.sessionIcons}
+                                <IconButton icon={<TiEdit/>} boxSize={6} m={1} className={styles.sessionIcons}
                                  onClick={() => setEditSessionMode(prev => !prev)}
                                 />
                             </span>
                         </Tooltip>
-                        <Tooltip label='Delete session' placement='right' hasArrow>
+                        <Tooltip label='Delete session' placement='right' hasArrow isDisabled={openDelete}>
                             <span>
-                                <DeleteSession session={session}/>
+                                <DeleteSession session={session} openDelete={openDelete} setOpenDelete={setOpenDelete}/>
                             </span>
                         </Tooltip>
                     </Flex>
@@ -146,7 +147,7 @@ export default function SessionCard({ session ,setSelectedCard, selectedCard}) {
                 <Flex justify='space-between' w='100%' p={5}>
                         <Text>Exercises</Text>
                         <Flex className={styles.sessionIconMenu}>
-                            <Icon as={TiArrowBackOutline} boxSize={6} m={1} className={styles.sessionIcons}
+                            <IconButton icon={<TiArrowBackOutline/>} boxSize={6} m={1} className={styles.sessionIcons}
                             onClick={() => changeCard(session.id)}
                             />
                         </Flex>

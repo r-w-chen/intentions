@@ -4,6 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
 import Footer from '../Footer';
+import styles from '../../css.modules/Errors.module.css';
+
+export const parseErrors = (errorsArr) => {
+  return errorsArr.map(error => {
+    return `* ${error.split(':')[1].trim()}`;
+  })
+}
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -16,7 +23,7 @@ const LoginForm = () => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data.errors) {
-      setErrors(data.errors);
+      setErrors(parseErrors(data.errors));
     }
   };
 
@@ -24,7 +31,7 @@ const LoginForm = () => {
     e.preventDefault();
     const data = await dispatch(login('demo@aa.io', 'password'));
     if (data.errors) {
-      setErrors(data.errors);
+      setErrors(parseErrors(data.errors));
     }
   }
 
@@ -44,13 +51,13 @@ const LoginForm = () => {
     <Flex justify='center' align='center' w='100%' h='100%' p={5}>
       <FormControl as='form' onSubmit={onLogin} bg='#ECECEC' w='50%' p={5} borderRadius='md' boxShadow='lg'>
         <Text textAlign='center' fontSize={24} pb={3} borderBottom='2px solid #385170'>Login</Text>
-        <div>
+        <ul className={styles.errorContainer}>
           {errors.map((error) => (
-            <div>{error}</div>
+            <li className={styles.authErrorMsg}>{error}</li>
           ))}
-        </div>
+        </ul>
         <div>
-          <FormLabel mt='20px' htmlFor="email">Email</FormLabel>
+          <FormLabel mt='5px' htmlFor="email">Email</FormLabel>
           <Input
             id='email'
             name="email"

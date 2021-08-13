@@ -85,11 +85,10 @@ ECECEC
     
 }
 .front {
-    /* backface-visibility: hidden; */
     transition: 500ms;
 }
 .front:hover{
-    transform: translateY(-10px);
+    background-color: #d1d1d1;
     z-index: 2;
 }
 
