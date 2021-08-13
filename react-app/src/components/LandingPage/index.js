@@ -20,7 +20,7 @@ export default function LandingPage() {
       }
     return (
         <Flex flexDir='column' align='center' className={styles.dashboardContainer}>
-            <Image  m={10} src={logo} alt='logo' w='50%'/>
+            <Image  m={10} src={logo} alt='logo' w='900px'/>
             <Button w={300} bg='#385170' color='#ECECEC' borderRadius='full'
              _hover={{ bg: '#142D4C'}}
              _active={{ bg: '#385170'}}
